@@ -24,17 +24,33 @@
   Um assistente de inteligência artificial modular, extensível e independente de provedores.
 </p>
 
+---
+
 <p align="center">
-  <a href="#-sobre-o-projeto">🧠 <b>Sobre</b></a>
-  &nbsp; • &nbsp;
-  <a href="#-diferenciais">✨ <b>Diferenciais</b></a>
-  &nbsp; • &nbsp;
-  <a href="#-funcionalidades">🚀 <b>Funcionalidades</b></a>
-  &nbsp; • &nbsp;
-  <a href="#-tecnologias">🔌 <b>Tecnologias</b></a>
-  &nbsp; • &nbsp;
-  <a href="#-instalação">📦 <b>Instalação</b></a>
+  <a href="#-sobre-o-projeto">
+    <img alt="Sobre" src="https://img.shields.io/badge/🧠_Sobre-6E40C9?style=flat-square">
+  </a>
+  <a href="#-diferenciais">
+    <img alt="Diferenciais" src="https://img.shields.io/badge/✨_Diferenciais-8B5CF6?style=flat-square">
+  </a>
+  <a href="#-funcionalidades">
+    <img alt="Funcionalidades" src="https://img.shields.io/badge/🚀_Funcionalidades-6E40C9?style=flat-square">
+  </a>
+  <a href="#-tecnologias">
+    <img alt="Tecnologias" src="https://img.shields.io/badge/🔌_Tecnologias-8B5CF6?style=flat-square">
+  </a>
+  <a href="#-instalação">
+    <img alt="Instalação" src="https://img.shields.io/badge/📦_Instalação-6E40C9?style=flat-square">
+  </a>
+  <a href="#-roadmap">
+    <img alt="Roadmap" src="https://img.shields.io/badge/🗺️_Roadmap-8B5CF6?style=flat-square">
+  </a>
+  <a href="#-contribuições">
+    <img alt="Contribuições" src="https://img.shields.io/badge/🤝_Contribuições-6E40C9?style=flat-square">
+  </a>
 </p>
+
+---
 
 <p align="center">
   <a href="README.md">🇧🇷 Português</a>
@@ -63,8 +79,6 @@ uv run guillotine
 ```
 
 Consulte a seção de [instalação](#-instalação) para obter mais informações sobre a configuração do ambiente.
-
----
 
 ## 🧠 Sobre o projeto
 
