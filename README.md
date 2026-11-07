@@ -21,7 +21,13 @@
 </p>
 
 <p align="center">
-  <a href="#-sobre-o-projeto"><img alt="Sobre" src="https://img.shields.io/badge/🧠_Sobre-6E40C9?style=flat-square"></a><a href="#-diferenciais"><img alt="Diferenciais" src="https://img.shields.io/badge/✨_Diferenciais-8B5CF6?style=flat-square"></a><a href="#-funcionalidades"><img alt="Funcionalidades" src="https://img.shields.io/badge/🚀_Funcionalidades-6E40C9?style=flat-square"></a><a href="#-tecnologias"><img alt="Tecnologias" src="https://img.shields.io/badge/🔌_Tecnologias-8B5CF6?style=flat-square"></a><a href="#-instalação"><img alt="Instalação" src="https://img.shields.io/badge/📦_Instalação-6E40C9?style=flat-square"></a><a href="#-roadmap"><img alt="Roadmap" src="https://img.shields.io/badge/🗺️_Roadmap-8B5CF6?style=flat-square"></a><a href="#-contribuições"><img alt="Contribuições" src="https://img.shields.io/badge/🤝_Contribuições-6E40C9?style=flat-square"></a>
+  <a href="#-sobre-o-projeto"><img alt="Sobre" src="https://img.shields.io/badge/🧠_Sobre-6E40C9?style=flat-square"></a>&#32;
+  <a href="#-diferenciais"><img alt="Diferenciais" src="https://img.shields.io/badge/✨_Diferenciais-8B5CF6?style=flat-square"></a>&#32;
+  <a href="#-funcionalidades"><img alt="Funcionalidades" src="https://img.shields.io/badge/🚀_Funcionalidades-6E40C9?style=flat-square"></a>&#32;
+  <a href="#-tecnologias"><img alt="Tecnologias" src="https://img.shields.io/badge/🔌_Tecnologias-8B5CF6?style=flat-square"></a>&#32;
+  <a href="#-instalação"><img alt="Instalação" src="https://img.shields.io/badge/📦_Instalação-6E40C9?style=flat-square"></a>&#32;
+  <a href="#-roadmap"><img alt="Roadmap" src="https://img.shields.io/badge/🗺️_Roadmap-8B5CF6?style=flat-square"></a>&#32;
+  <a href="#-contribuições"><img alt="Contribuições" src="https://img.shields.io/badge/🤝_Contribuições-6E40C9?style=flat-square"></a>
 </p>
 
 <p align="center">
@@ -31,12 +37,8 @@
 ## 🌐 Idiomas
 
 <p align="center">
-  <a href="README.md">
-    <img src="https://img.shields.io/badge/🇧🇷_Português-6E40C9?style=for-the-badge" alt="Português">
-  </a>
-  <a href="">
-    <img src="https://img.shields.io/badge/🇺🇸_English-8B5CF6?style=for-the-badge" alt="English — em breve">
-  </a>
+  <a href="README.md"><img src="https://img.shields.io/badge/🇧🇷_Português-6E40C9?style=for-the-badge" alt="Português"></a>&#32;
+  <a href=""><img src="https://img.shields.io/badge/🇺🇸_English-8B5CF6?style=for-the-badge" alt="English — em breve"></a>
 </p>
 
 ## ⚡ Quick-start
