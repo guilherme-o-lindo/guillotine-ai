@@ -1,46 +1,46 @@
 # Guillotine 🇫🇷
 
-\<p align="center">
-&#x20; \<a href="[https://github.com/guilherme-o-lindo/guillotine-ai](https://github.com/guilherme-o-lindo/guillotine-ai)">
-&#x20;   \<img
-&#x20;     align="center"
-&#x20;     src="assets/banner.png"
-&#x20;     alt="Guillotine — Seu assistente de IA, do seu jeito."
-&#x20;     width="100%"
-&#x20;   />
-&#x20; \</a>
-\</p>
+<h1 align="center">
+  <a href="https://github.com/guilherme-o-lindo/guillotine-ai">
+    <img
+      align="center"
+      src="assets/banner.png"
+      alt="Guillotine — Seu assistente de IA, do seu jeito."
+      width="100%"
+    />
+  </a>
+</h1>
 
-\<p align="center">
-&#x20; \<a href="LICENSE">
-&#x20;   \<img src="[https://img.shields.io/badge/License-MIT-green?style=for-the-badge](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)" alt="License: MIT">
-&#x20; \</a>
-&#x20; \<img src="[https://img.shields.io/badge/Python-3.12+-3776AB?style=for-the-badge&logo=python&logoColor=white](https://img.shields.io/badge/Python-3.12+-3776AB?style=for-the-badge\&logo=python\&logoColor=white)" alt="Python 3.12+">
-&#x20; \<img src="[https://img.shields.io/badge/uv-managed-6E40C9?style=for-the-badge&logo=astral&logoColor=white](https://img.shields.io/badge/uv-managed-6E40C9?style=for-the-badge\&logo=astral\&logoColor=white)" alt="uv">
-&#x20; \<img src="[https://img.shields.io/badge/Status-In%20Development-orange?style=for-the-badge](https://img.shields.io/badge/Status-In%20Development-orange?style=for-the-badge)" alt="In Development">
-\</p>
+<p align="center">
+  <a href="LICENSE">
+    <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="License: MIT">
+  </a>
+  <img src="https://img.shields.io/badge/Python-3.12+-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python 3.12+">
+  <img src="https://img.shields.io/badge/uv-managed-6E40C9?style=for-the-badge&logo=astral&logoColor=white" alt="uv">
+  <img src="https://img.shields.io/badge/Status-In%20Development-orange?style=for-the-badge" alt="In Development">
+</p>
 
-\<p align="center">
-&#x20; Um assistente de inteligência artificial modular, extensível e independente de provedores.
-\</p>
+<p align="center">
+  Um assistente de inteligência artificial modular, extensível e independente de provedores.
+</p>
 
-\<p align="center">
-&#x20; \<a href="#-sobre-o-projeto">\<b>Sobre\</b>\</a>
-&#x20; &nbsp; • &nbsp;
-&#x20; \<a href="#-diferenciais">\<b>Diferenciais\</b>\</a>
-&#x20; &nbsp; • &nbsp;
-&#x20; \<a href="#-funcionalidades">\<b>Funcionalidades\</b>\</a>
-&#x20; &nbsp; • &nbsp;
-&#x20; \<a href="#-tecnologias">\<b>Tecnologias\</b>\</a>
-&#x20; &nbsp; • &nbsp;
-&#x20; \<a href="#-instalação">\<b>Instalação\</b>\</a>
-\</p>
+<p align="center">
+  <a href="#-sobre-o-projeto">🧠 <b>Sobre</b></a>
+  &nbsp; • &nbsp;
+  <a href="#-diferenciais">✨ <b>Diferenciais</b></a>
+  &nbsp; • &nbsp;
+  <a href="#-funcionalidades">🚀 <b>Funcionalidades</b></a>
+  &nbsp; • &nbsp;
+  <a href="#-tecnologias">🔌 <b>Tecnologias</b></a>
+  &nbsp; • &nbsp;
+  <a href="#-instalação">📦 <b>Instalação</b></a>
+</p>
 
-\<p align="center">
-&#x20; \<a href="README.md">🇧🇷 Português\</a>
-&#x20; &nbsp; • &nbsp;
-&#x20; 🇺🇸 English (coming soon)
-\</p>
+<p align="center">
+  <a href="README.md">🇧🇷 Português</a>
+  &nbsp; • &nbsp;
+  🇺🇸 English (coming soon)
+</p>
 
 ---
 
@@ -78,66 +78,63 @@ Mais do que um simples cliente de IA, o Guillotine pretende funcionar como uma e
 
 ## ✨ Diferenciais
 
-\<table>
-&#x20; \<tr>
-&#x20;   \<td>\<b>Independência de provedores\</b>\</td>
-&#x20;   \<td>Uma camada unificada para trabalhar com diferentes modelos e serviços de inteligência artificial, reduzindo a dependência de fornecedores específicos.\</td>
-&#x20; \</tr>
-&#x20; \<tr>
-&#x20;   \<td>\<b>Arquitetura modular\</b>\</td>
-&#x20;   \<td>Componentes organizados por responsabilidade, permitindo adicionar ou modificar funcionalidades sem comprometer todo o sistema.\</td>
-&#x20; \</tr>
-&#x20; \<tr>
-&#x20;   \<td>\<b>Integração com ferramentas\</b>\</td>
-&#x20;   \<td>Uma estrutura para conectar o agente a ferramentas internas e serviços externos, incluindo integrações por meio do Model Context Protocol (MCP).\</td>
-&#x20; \</tr>
-&#x20; \<tr>
-&#x20;   \<td>\<b>Controle de permissões\</b>\</td>
-&#x20;   \<td>Execução de ações orientada por permissões e confirmação do usuário, mantendo o controle sobre o que o agente pode realizar.\</td>
-&#x20; \</tr>
-&#x20; \<tr>
-&#x20;   \<td>\<b>Memória persistente\</b>\</td>
-&#x20;   \<td>Uma estrutura de armazenamento para preservar informações relevantes e permitir continuidade entre diferentes sessões.\</td>
-&#x20; \</tr>
-&#x20; \<tr>
-&#x20;   \<td>\<b>Múltiplas interfaces\</b>\</td>
-&#x20;   \<td>Uma base preparada para diferentes formas de interação, como terminal, voz e API.\</td>
-&#x20; \</tr>
-&#x20; \<tr>
-&#x20;   \<td>\<b>Flexibilidade\</b>\</td>
-&#x20;   \<td>Possibilidade de adaptar o comportamento do assistente conforme a tarefa, o modelo utilizado e as ferramentas disponíveis.\</td>
-&#x20; \</tr>
-\</table>
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Independência de provedores</strong></td>
+      <td>Uma camada unificada para trabalhar com diferentes modelos e serviços de inteligência artificial, reduzindo a dependência de fornecedores específicos.</td>
+    </tr>
+    <tr>
+      <td><strong>Arquitetura modular</strong></td>
+      <td>Componentes organizados por responsabilidade, permitindo adicionar ou modificar funcionalidades sem comprometer todo o sistema.</td>
+    </tr>
+    <tr>
+      <td><strong>Integração com ferramentas</strong></td>
+      <td>Uma estrutura para conectar o agente a ferramentas internas e serviços externos, incluindo integrações por meio do Model Context Protocol (MCP).</td>
+    </tr>
+    <tr>
+      <td><strong>Controle de permissões</strong></td>
+      <td>Execução de ações orientada por permissões e confirmação do usuário, mantendo o controle sobre o que o agente pode realizar.</td>
+    </tr>
+    <tr>
+      <td><strong>Memória persistente</strong></td>
+      <td>Uma estrutura de armazenamento para preservar informações relevantes e permitir continuidade entre diferentes sessões.</td>
+    </tr>
+    <tr>
+      <td><strong>Múltiplas interfaces</strong></td>
+      <td>Uma base preparada para diferentes formas de interação, como terminal, voz e API.</td>
+    </tr>
+    <tr>
+      <td><strong>Flexibilidade</strong></td>
+      <td>Possibilidade de adaptar o comportamento do assistente conforme a tarefa, o modelo utilizado e as ferramentas disponíveis.</td>
+    </tr>
+  </tbody>
+</table>
 
 ## 🚀 Funcionalidades
 
 O Guillotine está em desenvolvimento. As funcionalidades abaixo representam os objetivos do projeto e serão implementadas gradualmente.
 
 - [ ] **Modelos e provedores**
-
   - [ ] Comunicação com diferentes provedores e modelos de IA.
   - [ ] Roteamento de modelos.
   - [ ] Configuração independente de provedor e modelo.
 
 - [ ] **Agente**
-
   - [ ] Sistema central de gerenciamento do agente.
   - [ ] Gerenciamento de contexto e histórico de conversas.
   - [ ] Comandos e modos de operação.
 
 - [ ] **Ferramentas**
-
   - [ ] Sistema de registro e execução de ferramentas internas.
   - [ ] Integração com servidores MCP.
   - [ ] Gerenciamento de permissões e confirmação de ações.
 
 - [ ] **Memória**
-
   - [ ] Memória persistente com SQLite.
   - [ ] Gerenciamento de conversas e informações relevantes.
 
 - [ ] **Interfaces**
-
   - [ ] Interface de linha de comando (CLI).
   - [ ] Interação por voz.
   - [ ] API para integração com outras aplicações.
@@ -146,14 +143,14 @@ O Guillotine está em desenvolvimento. As funcionalidades abaixo representam os 
 
 O Guillotine busca utilizar uma arquitetura modular, separando as principais responsabilidades do agente para facilitar a manutenção, compreensão e expansão do projeto.
 
-| Módulo       | Responsabilidade                                     |
-| ------------ | ---------------------------------------------------- |
-| `core`       | Lógica central, contexto e comportamento do agente.  |
-| `models`     | Comunicação e roteamento entre modelos e provedores. |
-| `tools`      | Registro, gerenciamento e execução de ferramentas.   |
-| `memory`     | Gerenciamento de memória e persistência de dados.    |
-| `interfaces` | Interfaces de interação, como CLI, voz e API.        |
-| `config`     | Configurações e variáveis de ambiente.               |
+| Módulo | Responsabilidade |
+|---|---|
+| `core` | Lógica central, contexto e comportamento do agente. |
+| `models` | Comunicação e roteamento entre modelos e provedores. |
+| `tools` | Registro, gerenciamento e execução de ferramentas. |
+| `memory` | Gerenciamento de memória e persistência de dados. |
+| `interfaces` | Interfaces de interação, como CLI, voz e API. |
+| `config` | Configurações e variáveis de ambiente. |
 
 A separação dos componentes busca manter o sistema organizado e evitar dependências desnecessárias entre módulos.
 
