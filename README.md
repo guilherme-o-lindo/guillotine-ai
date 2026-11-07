@@ -27,30 +27,8 @@
 ---
 
 <p align="center">
-  <a href="#-sobre-o-projeto">
-    <img alt="Sobre" src="https://img.shields.io/badge/🧠_Sobre-6E40C9?style=flat-square">
-  </a>
-  <a href="#-diferenciais">
-    <img alt="Diferenciais" src="https://img.shields.io/badge/✨_Diferenciais-8B5CF6?style=flat-square">
-  </a>
-  <a href="#-funcionalidades">
-    <img alt="Funcionalidades" src="https://img.shields.io/badge/🚀_Funcionalidades-6E40C9?style=flat-square">
-  </a>
-  <a href="#-tecnologias">
-    <img alt="Tecnologias" src="https://img.shields.io/badge/🔌_Tecnologias-8B5CF6?style=flat-square">
-  </a>
-  <a href="#-instalação">
-    <img alt="Instalação" src="https://img.shields.io/badge/📦_Instalação-6E40C9?style=flat-square">
-  </a>
-  <a href="#-roadmap">
-    <img alt="Roadmap" src="https://img.shields.io/badge/🗺️_Roadmap-8B5CF6?style=flat-square">
-  </a>
-  <a href="#-contribuições">
-    <img alt="Contribuições" src="https://img.shields.io/badge/🤝_Contribuições-6E40C9?style=flat-square">
-  </a>
+  <a href="#-sobre-o-projeto"><img alt="Sobre" src="https://img.shields.io/badge/🧠_Sobre-6E40C9?style=flat-square"></a><a href="#-diferenciais"><img alt="Diferenciais" src="https://img.shields.io/badge/✨_Diferenciais-8B5CF6?style=flat-square"></a><a href="#-funcionalidades"><img alt="Funcionalidades" src="https://img.shields.io/badge/🚀_Funcionalidades-6E40C9?style=flat-square"></a><a href="#-tecnologias"><img alt="Tecnologias" src="https://img.shields.io/badge/🔌_Tecnologias-8B5CF6?style=flat-square"></a><a href="#-instalação"><img alt="Instalação" src="https://img.shields.io/badge/📦_Instalação-6E40C9?style=flat-square"></a><a href="#-roadmap"><img alt="Roadmap" src="https://img.shields.io/badge/🗺️_Roadmap-8B5CF6?style=flat-square"></a><a href="#-contribuições"><img alt="Contribuições" src="https://img.shields.io/badge/🤝_Contribuições-6E40C9?style=flat-square"></a>
 </p>
-
----
 
 <p align="center">
   <a href="README.md">🇧🇷 Português</a>
@@ -157,14 +135,14 @@ O Guillotine está em desenvolvimento. As funcionalidades abaixo representam os 
 
 O Guillotine busca utilizar uma arquitetura modular, separando as principais responsabilidades do agente para facilitar a manutenção, compreensão e expansão do projeto.
 
-| Módulo | Responsabilidade |
-|---|---|
-| `core` | Lógica central, contexto e comportamento do agente. |
-| `models` | Comunicação e roteamento entre modelos e provedores. |
-| `tools` | Registro, gerenciamento e execução de ferramentas. |
-| `memory` | Gerenciamento de memória e persistência de dados. |
-| `interfaces` | Interfaces de interação, como CLI, voz e API. |
-| `config` | Configurações e variáveis de ambiente. |
+| Módulo       | Responsabilidade                                     |
+| ------------ | ---------------------------------------------------- |
+| `core`       | Lógica central, contexto e comportamento do agente.  |
+| `models`     | Comunicação e roteamento entre modelos e provedores. |
+| `tools`      | Registro, gerenciamento e execução de ferramentas.   |
+| `memory`     | Gerenciamento de memória e persistência de dados.    |
+| `interfaces` | Interfaces de interação, como CLI, voz e API.        |
+| `config`     | Configurações e variáveis de ambiente.               |
 
 A separação dos componentes busca manter o sistema organizado e evitar dependências desnecessárias entre módulos.
 
