@@ -1,175 +1,246 @@
-# Guillotine
+# Guillotine 🇫🇷
 
-Assistente de inteligência artificial modular desenvolvido em Python, projetado para centralizar e simplificar o uso de modelos de IA, ferramentas e diferentes interfaces de interação.
+\<p align="center">
+&#x20; \<a href="[https://github.com/guilherme-o-lindo/guillotine-ai](https://github.com/guilherme-o-lindo/guillotine-ai)">
+&#x20;   \<img
+&#x20;     align="center"
+&#x20;     src="assets/banner.png"
+&#x20;     alt="Guillotine — Seu assistente de IA, do seu jeito."
+&#x20;     width="100%"
+&#x20;   />
+&#x20; \</a>
+\</p>
 
-## Arquitetura
+\<p align="center">
+&#x20; \<a href="LICENSE">
+&#x20;   \<img src="[https://img.shields.io/badge/License-MIT-green?style=for-the-badge](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)" alt="License: MIT">
+&#x20; \</a>
+&#x20; \<img src="[https://img.shields.io/badge/Python-3.12+-3776AB?style=for-the-badge&logo=python&logoColor=white](https://img.shields.io/badge/Python-3.12+-3776AB?style=for-the-badge\&logo=python\&logoColor=white)" alt="Python 3.12+">
+&#x20; \<img src="[https://img.shields.io/badge/uv-managed-6E40C9?style=for-the-badge&logo=astral&logoColor=white](https://img.shields.io/badge/uv-managed-6E40C9?style=for-the-badge\&logo=astral\&logoColor=white)" alt="uv">
+&#x20; \<img src="[https://img.shields.io/badge/Status-In%20Development-orange?style=for-the-badge](https://img.shields.io/badge/Status-In%20Development-orange?style=for-the-badge)" alt="In Development">
+\</p>
 
-O projeto utiliza uma arquitetura modular, separando as responsabilidades em componentes independentes. Essa organização facilita a manutenção, a evolução e a adição de novas funcionalidades sem acoplar todo o sistema.
+\<p align="center">
+&#x20; Um assistente de inteligência artificial modular, extensível e independente de provedores.
+\</p>
 
-```text
-guillotine/
-├── src/
-│   └── guillotine/
-│       ├── __init__.py
-│       ├── main.py
-│       ├── config.py
-│       │
-│       ├── core/
-│       │   ├── agent.py
-│       │   ├── context.py
-│       │   ├── prompts.py
-│       │   └── permissions.py
-│       │
-│       ├── models/
-│       │   ├── router.py
-│       │   └── providers.py
-│       │
-│       ├── tools/
-│       │   ├── registry.py
-│       │   ├── executor.py
-│       │   ├── internal/
-│       │   └── mcp/
-│       │
-│       ├── memory/
-│       │   ├── manager.py
-│       │   ├── types.py
-│       │   ├── repositories/
-│       │   └── storage/
-│       │
-│       └── interfaces/
-│           ├── cli/
-│           ├── voice/
-│           └── api/
-│
-├── data/
-│   └── guillotine.db
-│
-├── tests/
-│
-├── .env
-├── .env.example
-├── .gitignore
-├── .pre-commit-config.yaml
-├── .python-version
-├── CHANGELOG.md
-├── pyproject.toml
-├── uv.lock
-└── README.md
-```
+\<p align="center">
+&#x20; \<a href="#-sobre-o-projeto">\<b>Sobre\</b>\</a>
+&#x20; &nbsp; • &nbsp;
+&#x20; \<a href="#-diferenciais">\<b>Diferenciais\</b>\</a>
+&#x20; &nbsp; • &nbsp;
+&#x20; \<a href="#-funcionalidades">\<b>Funcionalidades\</b>\</a>
+&#x20; &nbsp; • &nbsp;
+&#x20; \<a href="#-tecnologias">\<b>Tecnologias\</b>\</a>
+&#x20; &nbsp; • &nbsp;
+&#x20; \<a href="#-instalação">\<b>Instalação\</b>\</a>
+\</p>
 
-## Componentes
-
-### Core
-
-Contém a lógica central do agente e coordena seu funcionamento.
-
-- **agent.py:** responsável pelo ciclo de execução do agente e pela coordenação das interações.
-- **context.py:** gerencia o contexto utilizado durante as conversas.
-- **prompts.py:** centraliza os prompts e as instruções do agente.
-- **permissions.py:** controla as permissões de acesso e execução de ferramentas.
-
-### Models
-
-Gerencia a comunicação com os modelos de inteligência artificial.
-
-- **router.py:** seleciona e encaminha as requisições para os modelos disponíveis.
-- **providers.py:** concentra as integrações com os diferentes provedores de IA.
-
-Essa separação permite utilizar diferentes modelos e provedores sem depender de uma implementação específica.
-
-### Tools
-
-Gerencia as ferramentas que o agente pode utilizar.
-
-- **registry.py:** registra e disponibiliza as ferramentas existentes.
-- **executor.py:** controla a execução das ferramentas.
-
-As ferramentas são divididas em duas categorias:
-
-**Internal:** ferramentas nativas do Guillotine, como operações com arquivos, pesquisas, gerenciamento de sessões e informações do sistema.
-
-**MCP:** integrações com servidores externos através do Model Context Protocol, permitindo ampliar as capacidades do agente sem implementar cada integração diretamente.
-
-### Memory
-
-Responsável pelo armazenamento e gerenciamento de informações persistentes.
-
-- **manager.py:** coordena as operações de memória.
-- **types.py:** define estruturas e tipos utilizados pelo sistema.
-- **repositories/:** concentra as operações de consulta e persistência de cada conjunto de informações.
-- **storage/:** gerencia a conexão com o banco de dados, os modelos e as migrações.
-
-Inicialmente, o projeto utiliza SQLite, com possibilidade de utilizar outros bancos de dados futuramente.
-
-### Interfaces
-
-Contém as diferentes formas de interação com o agente.
-
-- **cli/:** interface de linha de comando.
-- **voice/:** recursos de interação por voz.
-- **api/:** disponibiliza o agente através de uma API.
-
-As interfaces utilizam a mesma lógica central, evitando duplicação de funcionalidades.
-
-### Configuração e inicialização
-
-- **main.py:** ponto de entrada principal da aplicação.
-- **config.py:** centraliza as configurações utilizadas pelo sistema.
-- **__init__.py:** identifica o pacote Python e pode disponibilizar funcionalidades de inicialização.
-
-## Dados e configurações
-
-### data/
-
-Armazena os dados persistentes gerados durante a execução do sistema.
-
-Inicialmente, contém o banco de dados SQLite:
-
-```text
-data/
-└── guillotine.db
-```
-
-Essa pasta fica fora de `src/` porque os dados de execução não fazem parte do código-fonte da aplicação.
-
-### .env
-
-Armazena configurações locais e informações sensíveis, como chaves de API e endereços de serviços.
-
-### .env.example
-
-Disponibiliza um modelo das variáveis de ambiente necessárias para executar o projeto, sem expor informações sensíveis.
-
-### pyproject.toml
-
-Centraliza os metadados do projeto, dependências, configurações de ferramentas e informações de empacotamento.
-
-### uv.lock
-
-Registra as versões exatas das dependências resolvidas pelo `uv`, contribuindo para a reprodução do ambiente de desenvolvimento.
-
-## Desenvolvimento e qualidade
-
-- **test/:** reúne os testes automatizados do projeto.
-- **.gitignore:** define arquivos e diretórios que não devem ser versionados.
-- **.pre-commit-config.yaml:** configura verificações automáticas antes dos commits.
-- **CHANGELOG.md:** registra as alterações relevantes entre versões.
-- **.python-version:** define a versão do Python utilizada no projeto.
-
-## Tecnologias
-
-| Categoria | Tecnologia |
-|---|---|
-| Linguagem | Python |
-| Gerenciamento de projeto | uv |
-| Banco de dados inicial | SQLite |
-| Configuração e validação | Pydantic |
-| Testes | Pytest |
-| Qualidade de código | Ruff |
-| Versionamento | Git e GitHub |
-| Commits | Commitizen |
-| Versionamento de releases | Python Semantic Release |
+\<p align="center">
+&#x20; \<a href="README.md">🇧🇷 Português\</a>
+&#x20; &nbsp; • &nbsp;
+&#x20; 🇺🇸 English (coming soon)
+\</p>
 
 ---
 
-**Guillotine** — uma arquitetura modular para um assistente de IA extensível, independente de provedores e interfaces.
+## ⚡ Quick-start
+
+O Guillotine tem como objetivo reunir diferentes modelos, ferramentas e serviços de inteligência artificial em um único assistente personalizável.
+
+```bash
+# Clone o repositório
+git clone https://github.com/guilherme-o-lindo/guillotine-ai.git
+
+# Entre na pasta
+cd guillotine
+
+# Instale as dependências
+uv sync
+
+# Execute o assistente
+uv run guillotine
+```
+
+Consulte a seção de [instalação](#-instalação) para obter mais informações sobre a configuração do ambiente.
+
+---
+
+## 🧠 Sobre o projeto
+
+**Guillotine** é um assistente de inteligência artificial desenvolvido em Python, com o objetivo de simplificar a interação com diferentes modelos e serviços de IA por meio de uma arquitetura modular e extensível.
+
+A proposta é oferecer uma experiência unificada, permitindo utilizar diferentes provedores, ferramentas e interfaces sem depender de um único modelo ou serviço.
+
+O projeto busca tornar a inteligência artificial mais acessível, flexível e personalizável, mantendo o controle sobre os dados, as integrações e as permissões concedidas ao agente.
+
+Mais do que um simples cliente de IA, o Guillotine pretende funcionar como uma estrutura central capaz de coordenar modelos, ferramentas e diferentes formas de interação.
+
+## ✨ Diferenciais
+
+\<table>
+&#x20; \<tr>
+&#x20;   \<td>\<b>Independência de provedores\</b>\</td>
+&#x20;   \<td>Uma camada unificada para trabalhar com diferentes modelos e serviços de inteligência artificial, reduzindo a dependência de fornecedores específicos.\</td>
+&#x20; \</tr>
+&#x20; \<tr>
+&#x20;   \<td>\<b>Arquitetura modular\</b>\</td>
+&#x20;   \<td>Componentes organizados por responsabilidade, permitindo adicionar ou modificar funcionalidades sem comprometer todo o sistema.\</td>
+&#x20; \</tr>
+&#x20; \<tr>
+&#x20;   \<td>\<b>Integração com ferramentas\</b>\</td>
+&#x20;   \<td>Uma estrutura para conectar o agente a ferramentas internas e serviços externos, incluindo integrações por meio do Model Context Protocol (MCP).\</td>
+&#x20; \</tr>
+&#x20; \<tr>
+&#x20;   \<td>\<b>Controle de permissões\</b>\</td>
+&#x20;   \<td>Execução de ações orientada por permissões e confirmação do usuário, mantendo o controle sobre o que o agente pode realizar.\</td>
+&#x20; \</tr>
+&#x20; \<tr>
+&#x20;   \<td>\<b>Memória persistente\</b>\</td>
+&#x20;   \<td>Uma estrutura de armazenamento para preservar informações relevantes e permitir continuidade entre diferentes sessões.\</td>
+&#x20; \</tr>
+&#x20; \<tr>
+&#x20;   \<td>\<b>Múltiplas interfaces\</b>\</td>
+&#x20;   \<td>Uma base preparada para diferentes formas de interação, como terminal, voz e API.\</td>
+&#x20; \</tr>
+&#x20; \<tr>
+&#x20;   \<td>\<b>Flexibilidade\</b>\</td>
+&#x20;   \<td>Possibilidade de adaptar o comportamento do assistente conforme a tarefa, o modelo utilizado e as ferramentas disponíveis.\</td>
+&#x20; \</tr>
+\</table>
+
+## 🚀 Funcionalidades
+
+O Guillotine está em desenvolvimento. As funcionalidades abaixo representam os objetivos do projeto e serão implementadas gradualmente.
+
+- [ ] **Modelos e provedores**
+
+  - [ ] Comunicação com diferentes provedores e modelos de IA.
+  - [ ] Roteamento de modelos.
+  - [ ] Configuração independente de provedor e modelo.
+
+- [ ] **Agente**
+
+  - [ ] Sistema central de gerenciamento do agente.
+  - [ ] Gerenciamento de contexto e histórico de conversas.
+  - [ ] Comandos e modos de operação.
+
+- [ ] **Ferramentas**
+
+  - [ ] Sistema de registro e execução de ferramentas internas.
+  - [ ] Integração com servidores MCP.
+  - [ ] Gerenciamento de permissões e confirmação de ações.
+
+- [ ] **Memória**
+
+  - [ ] Memória persistente com SQLite.
+  - [ ] Gerenciamento de conversas e informações relevantes.
+
+- [ ] **Interfaces**
+
+  - [ ] Interface de linha de comando (CLI).
+  - [ ] Interação por voz.
+  - [ ] API para integração com outras aplicações.
+
+## 🏗️ Arquitetura
+
+O Guillotine busca utilizar uma arquitetura modular, separando as principais responsabilidades do agente para facilitar a manutenção, compreensão e expansão do projeto.
+
+| Módulo       | Responsabilidade                                     |
+| ------------ | ---------------------------------------------------- |
+| `core`       | Lógica central, contexto e comportamento do agente.  |
+| `models`     | Comunicação e roteamento entre modelos e provedores. |
+| `tools`      | Registro, gerenciamento e execução de ferramentas.   |
+| `memory`     | Gerenciamento de memória e persistência de dados.    |
+| `interfaces` | Interfaces de interação, como CLI, voz e API.        |
+| `config`     | Configurações e variáveis de ambiente.               |
+
+A separação dos componentes busca manter o sistema organizado e evitar dependências desnecessárias entre módulos.
+
+A arquitetura poderá evoluir conforme as necessidades do projeto, sem adotar abstrações que não tragam benefícios reais.
+
+## 🔌 Tecnologias
+
+### Base do projeto
+
+- [Python](https://www.python.org/) — Linguagem principal.
+- [uv](https://docs.astral.sh/uv/) — Gerenciamento de dependências, ambientes e execução de comandos.
+
+### Bibliotecas planejadas
+
+- [Pydantic](https://docs.pydantic.dev/) — Validação e estruturação de dados.
+- [AnyIO](https://anyio.readthedocs.io/) — Operações assíncronas.
+- [Uvicorn](https://www.uvicorn.org/) — Servidor ASGI para a futura API.
+
+### Desenvolvimento e qualidade de código
+
+- [Ruff](https://docs.astral.sh/ruff/) — Análise estática e formatação de código.
+- [Pytest](https://docs.pytest.org/) — Testes automatizados.
+- [Commitizen](https://commitizen-tools.github.io/commitizen/) — Padronização de mensagens de commit.
+- [Python Semantic Release](https://python-semantic-release.readthedocs.io/) — Automação de versões e releases.
+- [Pre-commit](https://pre-commit.com/) — Execução de verificações automáticas antes dos commits.
+
+## 📦 Instalação
+
+### Pré-requisitos
+
+- Python 3.12 ou superior.
+- [uv](https://docs.astral.sh/uv/getting-started/installation/).
+- [Git](https://git-scm.com/).
+
+### 1. Clonando o repositório
+
+```bash
+git clone https://github.com/guilherme-o-lindo/guillotine-ai.git
+
+cd guillotine
+```
+
+### 2. Instalando as dependências
+
+Utilize o uv para criar o ambiente virtual e instalar as dependências do projeto:
+
+```bash
+uv sync
+```
+
+### 3. Configuração
+
+Crie um arquivo `.env` a partir do modelo disponibilizado no repositório:
+
+```bash
+cp .env.example .env
+```
+
+Configure as variáveis necessárias de acordo com o provedor e os serviços utilizados.
+
+> Não compartilhe seu arquivo `.env` nem envie chaves de API para o repositório.
+
+### 4. Executando
+
+```bash
+uv run guillotine
+```
+
+## 🗺️ Roadmap
+
+O desenvolvimento será dividido em etapas, priorizando primeiro os fundamentos do agente e depois a expansão de suas capacidades.
+
+1. **Fundamentos:** estrutura do projeto, configurações e gerenciamento do agente.
+2. **Modelos:** integração com provedores e roteamento de modelos.
+3. **Ferramentas:** sistema interno de ferramentas e integração MCP.
+4. **Memória:** gerenciamento de conversas e persistência de informações.
+5. **Interfaces:** CLI, voz e API.
+6. **Expansão:** novas integrações, funcionalidades e melhorias de experiência.
+
+## 🤝 Contribuições
+
+O Guillotine está em desenvolvimento e contribuições são bem-vindas.
+
+Sugestões, correções, melhorias e novas ideias podem ser compartilhadas por meio das [Issues](https://github.com/guilherme-o-lindo/guillotine-ai/issues) ou de Pull Requests.
+
+Antes de contribuir, procure manter os padrões de organização, nomenclatura e mensagens de commit utilizados no projeto.
+
+## 📄 Licença
+
+Este projeto está licenciado sob a [MIT License](LICENSE).
