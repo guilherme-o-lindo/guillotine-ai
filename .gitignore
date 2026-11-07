@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# Virtual environment
+.venv/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Testing and linting
+.pytest_cache/
+.ruff_cache/
+.coverage
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Local data
+*.db
+*.sqlite3
+
+# Temporary files
+*.tmp
