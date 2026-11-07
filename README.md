@@ -12,11 +12,9 @@
 </h1>
 
 <p align="center">
-  <a href="LICENSE">
-    <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="License: MIT">
-  </a>
-  <img src="https://img.shields.io/badge/Python-3.12+-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python 3.12+">
-  <img src="https://img.shields.io/badge/uv-managed-6E40C9?style=for-the-badge&logo=astral&logoColor=white" alt="uv">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="License: MIT"></a>&#32;
+  <img src="https://img.shields.io/badge/Python-3.12+-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python 3.12+">&#32;
+  <img src="https://img.shields.io/badge/uv-managed-6E40C9?style=for-the-badge&logo=uv&logoColor=white" alt="uv">&#32;
   <img src="https://img.shields.io/badge/Status-In%20Development-orange?style=for-the-badge" alt="In Development">
 </p>
 
