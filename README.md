@@ -21,22 +21,23 @@
 </p>
 
 <p align="center">
-  Um assistente de inteligência artificial modular, extensível e independente de provedores.
-</p>
-
----
-
-<p align="center">
   <a href="#-sobre-o-projeto"><img alt="Sobre" src="https://img.shields.io/badge/🧠_Sobre-6E40C9?style=flat-square"></a><a href="#-diferenciais"><img alt="Diferenciais" src="https://img.shields.io/badge/✨_Diferenciais-8B5CF6?style=flat-square"></a><a href="#-funcionalidades"><img alt="Funcionalidades" src="https://img.shields.io/badge/🚀_Funcionalidades-6E40C9?style=flat-square"></a><a href="#-tecnologias"><img alt="Tecnologias" src="https://img.shields.io/badge/🔌_Tecnologias-8B5CF6?style=flat-square"></a><a href="#-instalação"><img alt="Instalação" src="https://img.shields.io/badge/📦_Instalação-6E40C9?style=flat-square"></a><a href="#-roadmap"><img alt="Roadmap" src="https://img.shields.io/badge/🗺️_Roadmap-8B5CF6?style=flat-square"></a><a href="#-contribuições"><img alt="Contribuições" src="https://img.shields.io/badge/🤝_Contribuições-6E40C9?style=flat-square"></a>
 </p>
 
 <p align="center">
-  <a href="README.md">🇧🇷 Português</a>
-  &nbsp; • &nbsp;
-  🇺🇸 English (coming soon)
+  Um assistente de inteligência artificial modular, extensível e independente de provedores.
 </p>
 
----
+## 🌐 Idiomas
+
+<p align="center">
+  <a href="README.md">
+    <img src="https://img.shields.io/badge/🇧🇷_Português-6E40C9?style=for-the-badge" alt="Português">
+  </a>
+  <a href="">
+    <img src="https://img.shields.io/badge/🇺🇸_English-8B5CF6?style=for-the-badge" alt="English — em breve">
+  </a>
+</p>
 
 ## ⚡ Quick-start
 
@@ -150,24 +151,49 @@ A arquitetura poderá evoluir conforme as necessidades do projeto, sem adotar ab
 
 ## 🔌 Tecnologias
 
-### Base do projeto
+### Linguagem e gerenciamento
 
-- [Python](https://www.python.org/) — Linguagem principal.
-- [uv](https://docs.astral.sh/uv/) — Gerenciamento de dependências, ambientes e execução de comandos.
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python">
+  <img src="https://img.shields.io/badge/uv-6E40C9?style=for-the-badge&logo=uv&logoColor=white" alt="uv">
+</p>
+
+| Tecnologia | Finalidade |
+|:---|:---|
+| [Python](https://www.python.org/) | Linguagem principal do projeto. |
+| [uv](https://docs.astral.sh/uv/) | Gerenciamento de dependências, ambientes virtuais e execução de comandos. |
 
 ### Bibliotecas planejadas
 
-- [Pydantic](https://docs.pydantic.dev/) — Validação e estruturação de dados.
-- [AnyIO](https://anyio.readthedocs.io/) — Operações assíncronas.
-- [Uvicorn](https://www.uvicorn.org/) — Servidor ASGI para a futura API.
+<p align="center">
+  <img src="https://img.shields.io/badge/Pydantic-E92063?style=for-the-badge&logo=pydantic&logoColor=white" alt="Pydantic">
+  <img src="https://img.shields.io/badge/AnyIO-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="AnyIO">
+  <img src="https://img.shields.io/badge/Uvicorn-4051B5?style=for-the-badge&logo=gunicorn&logoColor=white" alt="Uvicorn">
+</p>
+
+| Tecnologia | Finalidade |
+|:---|:---|
+| [Pydantic](https://docs.pydantic.dev/) | Validação, serialização e estruturação de dados. |
+| [AnyIO](https://anyio.readthedocs.io/) | Abstração para operações assíncronas. |
+| [Uvicorn](https://www.uvicorn.org/) | Servidor ASGI para execução da futura API. |
 
 ### Desenvolvimento e qualidade de código
 
-- [Ruff](https://docs.astral.sh/ruff/) — Análise estática e formatação de código.
-- [Pytest](https://docs.pytest.org/) — Testes automatizados.
-- [Commitizen](https://commitizen-tools.github.io/commitizen/) — Padronização de mensagens de commit.
-- [Python Semantic Release](https://python-semantic-release.readthedocs.io/) — Automação de versões e releases.
-- [Pre-commit](https://pre-commit.com/) — Execução de verificações automáticas antes dos commits.
+<p align="center">
+  <img src="https://img.shields.io/badge/Ruff-D7FF64?style=for-the-badge&logo=ruff&logoColor=black" alt="Ruff">
+  <img src="https://img.shields.io/badge/Pytest-0A9EDC?style=for-the-badge&logo=pytest&logoColor=white" alt="Pytest">
+  <img src="https://img.shields.io/badge/Commitizen-000000?style=for-the-badge&logo=commitlint&logoColor=white" alt="Commitizen">
+  <img src="https://img.shields.io/badge/Semantic_Release-494949?style=for-the-badge&logo=semanticrelease&logoColor=white" alt="Python Semantic Release">
+  <img src="https://img.shields.io/badge/Pre--commit-FAB040?style=for-the-badge&logo=pre-commit&logoColor=black" alt="Pre-commit">
+</p>
+
+| Tecnologia | Finalidade |
+|:---|:---|
+| [Ruff](https://docs.astral.sh/ruff/) | Análise estática, identificação de problemas e formatação de código. |
+| [Pytest](https://docs.pytest.org/) | Criação e execução de testes automatizados. |
+| [Commitizen](https://commitizen-tools.github.io/commitizen/) | Padronização de mensagens de commit. |
+| [Python Semantic Release](https://python-semantic-release.readthedocs.io/) | Automação do versionamento e geração de releases. |
+| [Pre-commit](https://pre-commit.com/) | Execução de verificações automáticas antes dos commits. |
 
 ## 📦 Instalação
 
