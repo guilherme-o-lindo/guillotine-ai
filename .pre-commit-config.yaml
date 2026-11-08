@@ -1,3 +1,4 @@
+
 repos:
   # Commitizen - Conventional Commits
   - repo: https://github.com/commitizen-tools/commitizen
@@ -14,12 +15,14 @@ repos:
         entry: uv run ruff check --fix
         language: system
         types: [python]
+        stages: [pre-commit]
 
       - id: ruff-format
         name: Ruff - Format
         entry: uv run ruff format
         language: system
         types: [python]
+        stages: [pre-commit]
 
       - id: pyright
         name: Pyright - Type Checking
@@ -27,3 +30,4 @@ repos:
         language: system
         pass_filenames: false
         always_run: true
+        stages: [pre-commit]
