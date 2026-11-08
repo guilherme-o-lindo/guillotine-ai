@@ -144,7 +144,7 @@ Os itens abaixo foram observados na revisão do snapshot do MVP. Devem ser reval
 
 ### 3.1. Testes automatizados
 
-![Priority](https://img.shields.io/badge/Prioridade:-alta-DC2626?style=flat-square)
+![Priority](https://img.shields.io/static/v1?label=Priority&message=High&color=DC2626&style=flat-square)
 
 Os arquivos de teste analisados continham scripts de execução manual com `main()` e saídas em `print()`, mas não apresentavam testes Pytest convencionais com funções `test_...`.
 
@@ -162,7 +162,7 @@ Scripts manuais podem continuar sendo úteis para experimentação, mas não sub
 
 ### 3.2. Configuração de ambiente
 
-![Priority](https://img.shields.io/badge/Prioridade:-alta-DC2626?style=flat-square)
+![Priority](https://img.shields.io/static/v1?label=Priority&message=High&color=DC2626&style=flat-square)
 
 Foi identificada divergência entre os nomes das variáveis no `.env.example` e os nomes consultados pelo código.
 
@@ -185,7 +185,7 @@ Nunca versionar `.env` nem compartilhar chaves, tokens ou credenciais.
 
 ### 3.3. Cliente e provedor de modelo
 
-![Priority](https://img.shields.io/badge/Prioridade:-m%C3%A9dia-F59E0B?style=flat-square)
+![Priority](https://img.shields.io/static/v1?label=Priority&message=Medium&color=F59E0B&style=flat-square)
 
 A revisão identificou clientes independentes para o mesmo serviço: um cliente OpenAI assíncrono e um `OpenAIProvider` utilizado pelo PydanticAI. O cliente independente aparecia em um script de conexão.
 
@@ -201,7 +201,7 @@ Isso não é necessariamente incorreto, mas exige uma estratégia explícita.
 
 ### 3.4. LangGraph e checkpoints
 
-![Priority](https://img.shields.io/badge/Prioridade:-m%C3%A9dia-F59E0B?style=flat-square)
+![Priority](https://img.shields.io/static/v1?label=Priority&message=Medium&color=F59E0B&style=flat-square)
 
 O grafo observado no MVP era simples, com um nó principal do agente. O histórico da conversa era recuperado pelo gerenciamento de memória, enquanto o checkpoint do LangGraph ainda não coordenava um fluxo complexo de execução.
 
@@ -214,7 +214,7 @@ O grafo observado no MVP era simples, com um nó principal do agente. O históri
 
 ### 3.5. Tratamento de erros e CLI
 
-![Priority](https://img.shields.io/badge/Prioridade:-m%C3%A9dia-F59E0B?style=flat-square)
+![Priority](https://img.shields.io/static/v1?label=Priority&message=Medium&color=F59E0B&style=flat-square)
 
 A revisão identificou tratamento limitado de exceções na CLI e uso de `input()` em fluxo assíncrono.
 
@@ -290,9 +290,13 @@ O desenvolvimento do Guillotine será dividido em versões incrementais. Cada ve
 
 <div align="center">
 
-![Release](https://img.shields.io/badge/Release-v0.2.0-7C3AED?style=for-the-badge)
+<div align="center">
 
-![Theme](https://img.shields.io/badge/Theme-Reliability%20and%20Testing-9333EA?style=for-the-badge)
+  <img src="https://img.shields.io/static/v1?label=Release&message=v0.2.0&color=7C3AED&style=for-the-badge" alt="Release v0.2.0">
+
+  <img src="https://img.shields.io/static/v1?label=Theme&message=Reliability%20and%20Testing&color=9333EA&style=for-the-badge" alt="Theme Reliability and Testing">
+
+</div>
 
 </div>
 
