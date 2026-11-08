@@ -19,6 +19,6 @@
   "packageManager": "pnpm@12.18.0",
   "type": "module",
   "dependencies": {
-    "omniroute": "^3.8.53"
+    "9router": "0.5.116"
   }
 }

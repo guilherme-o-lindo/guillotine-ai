@@ -20,14 +20,16 @@ dependencies = [
     "opentelemetry-sdk>=1.45.2",
     "playwright>=1.64.1",
     "pydantic-ai>=2.66.0",
+    "python-dotenv>=1.2.4",
     "sentry-sdk>=2.74.0",
     "sqlalchemy>=2.1.8",
     "structlog>=26.1.0",
     "tenacity>=9.1.4",
+    "tzdata>=2026.6",
 ]
 
 [project.scripts]
-guillotine = "guillotine:main"
+guillotine = "guillotine.main:main"
 
 [build-system]
 requires = ["uv_build>=0.13.7,<0.14.0"]
@@ -84,6 +86,7 @@ indent-style = "space"
 [tool.pyright]
 pythonVersion = "3.12"
 typeCheckingMode = "strict"
-include = ["src", "tests"]
+include = ["src", "test"]
 venvPath = "."
 venv = ".venv"
+reportMissingTypeStubs = "none"

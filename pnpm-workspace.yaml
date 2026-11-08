@@ -1,4 +1,5 @@
 allowBuilds:
+  9router: true
   '@parcel/watcher': true
   '@swc/core': true
   esbuild: true
@@ -6,3 +7,5 @@ allowBuilds:
   omniroute: true
   onnxruntime-node: true
   protobufjs: true
+minimumReleaseAgeExclude:
+  - 9router@0.5.116
