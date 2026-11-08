@@ -246,7 +246,7 @@ A estrutura também contém módulos preparados para funcionalidades futuras. Ne
 <p align="center">
   <img src="https://img.shields.io/badge/PydanticAI-E92063?style=for-the-badge&logo=pydantic&logoColor=white" alt="PydanticAI">
   <img src="https://img.shields.io/badge/LangGraph-1C3C3C?style=for-the-badge" alt="LangGraph">
-  <img src="https://img.shields.io/badge/OpenAI--compatible-412991?style=for-the-badge" alt="OpenAI-compatible API">
+  <img src="https://img.shields.io/badge/OpenAI_API-412991?style=for-the-badge&logo=openai&logoColor=white" alt="OpenAI API">
 </p>
 
 | Tecnologia | Finalidade |
@@ -259,7 +259,7 @@ A estrutura também contém módulos preparados para funcionalidades futuras. Ne
 
 <p align="center">
   <img src="https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white" alt="SQLite">
-  <img src="https://img.shields.io/badge/aiosqlite-3776AB?style=for-the-badge" alt="aiosqlite">
+  <img src="https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white" alt="aiosqlite">
 </p>
 
 | Tecnologia | Finalidade |
