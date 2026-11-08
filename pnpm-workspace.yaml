@@ -1,0 +1,8 @@
+allowBuilds:
+  '@parcel/watcher': true
+  '@swc/core': true
+  esbuild: true
+  keytar: true
+  omniroute: true
+  onnxruntime-node: true
+  protobufjs: true

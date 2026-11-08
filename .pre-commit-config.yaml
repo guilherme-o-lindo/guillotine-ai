@@ -1,6 +1,29 @@
 repos:
+  # Commitizen - Conventional Commits
   - repo: https://github.com/commitizen-tools/commitizen
     rev: v4.19.3
     hooks:
       - id: commitizen
         stages: [commit-msg]
+
+  # Ferramentas Python - Qualidade e tipagem
+  - repo: local
+    hooks:
+      - id: ruff-check
+        name: Ruff - Lint
+        entry: uv run ruff check --fix
+        language: system
+        types: [python]
+
+      - id: ruff-format
+        name: Ruff - Format
+        entry: uv run ruff format
+        language: system
+        types: [python]
+
+      - id: pyright
+        name: Pyright - Type Checking
+        entry: uv run pyright
+        language: system
+        pass_filenames: false
+        always_run: true

@@ -7,7 +7,24 @@ authors = [
     { name = "Guilherme Cordeiro", email = "guilherme.cordeiro.da.silva000@gmail.com" }
 ]
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "aiosqlite>=0.22.1",
+    "alembic>=1.20.1",
+    "anyio>=4.16.0",
+    "langgraph>=1.2.20",
+    "langgraph-checkpoint-sqlite>=3.1.3",
+    "mcp>=2.3.0",
+    "openai>=3.46.0",
+    "opentelemetry-api>=1.45.2",
+    "opentelemetry-exporter-otlp>=1.45.2",
+    "opentelemetry-sdk>=1.45.2",
+    "playwright>=1.64.1",
+    "pydantic-ai>=2.66.0",
+    "sentry-sdk>=2.74.0",
+    "sqlalchemy>=2.1.8",
+    "structlog>=26.1.0",
+    "tenacity>=9.1.4",
+]
 
 [project.scripts]
 guillotine = "guillotine:main"
@@ -20,7 +37,12 @@ build-backend = "uv_build"
 dev = [
     "commitizen>=4.19.3",
     "pre-commit>=4.7.0",
+    "pyright>=1.1.414",
+    "pytest>=9.2.0",
+    "pytest-asyncio>=1.4.1.post1",
+    "pytest-playwright>=0.10.0",
     "python-semantic-release>=10.7.0",
+    "ruff>=0.17.4",
 ]
 
 [tool.commitizen]
@@ -39,3 +61,29 @@ tag_format = "v{version}"
 changelog_file = "CHANGELOG.md"
 commit_parser = "conventional"
 build_command = "uv build"
+
+[tool.ruff]
+line-length = 88
+target-version = "py312"
+src = ["src"]
+
+[tool.ruff.lint]
+select = [
+    "E",    # Erros de estilo
+    "F",    # Pyflakes
+    "I",    # Organização de imports
+    "UP",   # Modernização de sintaxe
+    "B",    # Bugbear
+    "SIM",  # Simplificações
+]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.pyright]
+pythonVersion = "3.12"
+typeCheckingMode = "strict"
+include = ["src", "tests"]
+venvPath = "."
+venv = ".venv"

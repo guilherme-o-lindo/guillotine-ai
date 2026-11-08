@@ -1,30 +1,81 @@
+
+# ==============================
 # Python
+# ==============================
 __pycache__/
 *.py[cod]
+*.pyd
+*.egg-info/
 
-# Virtual environment
+# ==============================
+# Virtual Environment
+# ==============================
 .venv/
+venv/
+env/
+ENV/
 
-# Environment variables
+# ==============================
+# Environment Variables
+# ==============================
 .env
 .env.*
 !.env.example
 
-# Testing and linting
+# ==============================
+# Testing and Linting
+# ==============================
 .pytest_cache/
 .ruff_cache/
+.pyright/
 .coverage
+.coverage.*
+htmlcov/
 
-# IDE
+# ==============================
+# Build and Distribution
+# ==============================
+build/
+dist/
+
+# ==============================
+# Node.js / pnpm
+# ==============================
+node_modules/
+.pnpm-store/
+.npm/
+*.tsbuildinfo
+
+# ==============================
+# IDE and Editors
+# ==============================
 .vscode/
 .idea/
 
+# ==============================
 # Logs
+# ==============================
 *.log
+npm-debug.log*
+pnpm-debug.log*
 
-# Local data
+# ==============================
+# Local Databases
+# ==============================
 *.db
+*.sqlite
 *.sqlite3
 
-# Temporary files
+# ==============================
+# Temporary Files
+# ==============================
 *.tmp
+*.temp
+*.bak
+
+# ==============================
+# Operating System
+# ==============================
+.DS_Store
+Thumbs.db
+Desktop.ini
