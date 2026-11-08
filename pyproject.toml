@@ -63,6 +63,7 @@ tag_format = "v{version}"
 changelog_file = "CHANGELOG.md"
 commit_parser = "conventional"
 build_command = "uv build"
+allow_zero_version = true
 
 [tool.ruff]
 line-length = 88
