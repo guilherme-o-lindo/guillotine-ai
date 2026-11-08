@@ -259,7 +259,6 @@ A estrutura também contém módulos preparados para funcionalidades futuras. Ne
 
 <p align="center">
   <img src="https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white" alt="SQLite">
-  <img src="https://img.shields.io/badge/aiosqlite-2C5F2D?style=for-the-badge" alt="aiosqlite">
 </p>
 
 | Tecnologia | Finalidade |
