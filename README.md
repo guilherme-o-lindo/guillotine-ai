@@ -15,14 +15,14 @@
 </p>
 
 <p align="center">
-  <a href="#-sobre-o-projeto"><img alt="Sobre" src="https://img.shields.io/badge/🧠_Sobre-6E40C9?style=flat-square"></a>&#32;
-  <a href="#-diferenciais"><img alt="Diferenciais" src="https://img.shields.io/badge/✨_Diferenciais-8B5CF6?style=flat-square"></a>&#32;
-  <a href="#-funcionalidades"><img alt="Funcionalidades" src="https://img.shields.io/badge/🚀_Funcionalidades-6E40C9?style=flat-square"></a>&#32;
-  <a href="#-arquitetura"><img alt="Arquitetura" src="https://img.shields.io/badge/🏗️_Arquitetura-8B5CF6?style=flat-square"></a>&#32;
-  <a href="#-tecnologias"><img alt="Tecnologias" src="https://img.shields.io/badge/🔌_Tecnologias-6E40C9?style=flat-square"></a>&#32;
-  <a href="#-instalação"><img alt="Instalação" src="https://img.shields.io/badge/📦_Instalação-8B5CF6?style=flat-square"></a>&#32;
-  <a href="#-roadmap"><img alt="Roadmap" src="https://img.shields.io/badge/🗺️_Roadmap-6E40C9?style=flat-square"></a>&#32;
-  <a href="#-contribuições"><img alt="Contribuições" src="https://img.shields.io/badge/🤝_Contribuições-8B5CF6?style=flat-square"></a>
+  <a href="#-sobre-o-projeto"><img alt="Sobre" src="https://img.shields.io/badge/Sobre-6E40C9?style=flat-square"></a>&#32;
+  <a href="#-diferenciais"><img alt="Diferenciais" src="https://img.shields.io/badge/Diferenciais-8B5CF6?style=flat-square"></a>&#32;
+  <a href="#-funcionalidades"><img alt="Funcionalidades" src="https://img.shields.io/badge/Funcionalidades-6E40C9?style=flat-square"></a>&#32;
+  <a href="#-arquitetura"><img alt="Arquitetura" src="https://img.shields.io/badge/Arquitetura-8B5CF6?style=flat-square"></a>&#32;
+  <a href="#-tecnologias"><img alt="Tecnologias" src="https://img.shields.io/badge/Tecnologias-6E40C9?style=flat-square"></a>&#32;
+  <a href="#-instalação"><img alt="Instalação" src="https://img.shields.io/badge/Instalacao-8B5CF6?style=flat-square"></a>&#32;
+  <a href="#-roadmap"><img alt="Roadmap" src="https://img.shields.io/badge/Roadmap-6E40C9?style=flat-square"></a>&#32;
+  <a href="#-contribuições"><img alt="Contribuições" src="https://img.shields.io/badge/Contribuicoes-8B5CF6?style=flat-square"></a>
 </p>
 
 <p align="center">
@@ -247,7 +247,7 @@ A estrutura também contém módulos preparados para funcionalidades futuras. Ne
 <p align="center">
   <img src="https://img.shields.io/badge/PydanticAI-E92063?style=for-the-badge&logo=pydantic&logoColor=white" alt="PydanticAI">
   <img src="https://img.shields.io/badge/LangGraph-1C3C3C?style=for-the-badge" alt="LangGraph">
-  <img src="https://img.shields.io/badge/OpenAI--compatible-412991?style=for-the-badge&logo=openai&logoColor=white" alt="OpenAI-compatible API">
+  <img src="https://img.shields.io/badge/OpenAI--compatible-412991?style=for-the-badge" alt="OpenAI-compatible API">
 </p>
 
 | Tecnologia | Finalidade |
@@ -260,7 +260,7 @@ A estrutura também contém módulos preparados para funcionalidades futuras. Ne
 
 <p align="center">
   <img src="https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white" alt="SQLite">
-  <img src="https://img.shields.io/badge/aiosqlite-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="aiosqlite">
+  <img src="https://img.shields.io/badge/aiosqlite-3776AB?style=for-the-badge" alt="aiosqlite">
 </p>
 
 | Tecnologia | Finalidade |
