@@ -15,14 +15,13 @@
 </p>
 
 <p align="center">
-  <a href="#-sobre-o-projeto"><img alt="Sobre" src="https://img.shields.io/badge/Sobre-6E40C9?style=flat-square"></a>&#32;
-  <a href="#-diferenciais"><img alt="Diferenciais" src="https://img.shields.io/badge/Diferenciais-8B5CF6?style=flat-square"></a>&#32;
-  <a href="#-funcionalidades"><img alt="Funcionalidades" src="https://img.shields.io/badge/Funcionalidades-6E40C9?style=flat-square"></a>&#32;
-  <a href="#-arquitetura"><img alt="Arquitetura" src="https://img.shields.io/badge/Arquitetura-8B5CF6?style=flat-square"></a>&#32;
-  <a href="#-tecnologias"><img alt="Tecnologias" src="https://img.shields.io/badge/Tecnologias-6E40C9?style=flat-square"></a>&#32;
-  <a href="#-instalação"><img alt="Instalação" src="https://img.shields.io/badge/Instalacao-8B5CF6?style=flat-square"></a>&#32;
-  <a href="#-roadmap"><img alt="Roadmap" src="https://img.shields.io/badge/Roadmap-6E40C9?style=flat-square"></a>&#32;
-  <a href="#-contribuições"><img alt="Contribuições" src="https://img.shields.io/badge/Contribuicoes-8B5CF6?style=flat-square"></a>
+  <a href="#-sobre-o-projeto"><img alt="Sobre" src="https://img.shields.io/badge/🧠_Sobre-6E40C9?style=flat-square"></a>&#32;
+  <a href="#-diferenciais"><img alt="Diferenciais" src="https://img.shields.io/badge/✨_Diferenciais-8B5CF6?style=flat-square"></a>&#32;
+  <a href="#-funcionalidades"><img alt="Funcionalidades" src="https://img.shields.io/badge/🚀_Funcionalidades-6E40C9?style=flat-square"></a>&#32;
+  <a href="#-tecnologias"><img alt="Tecnologias" src="https://img.shields.io/badge/🔌_Tecnologias-8B5CF6?style=flat-square"></a>&#32;
+  <a href="#-instalação"><img alt="Instalação" src="https://img.shields.io/badge/📦_Instalação-6E40C9?style=flat-square"></a>&#32;
+  <a href="#-roadmap"><img alt="Roadmap" src="https://img.shields.io/badge/🗺️_Roadmap-8B5CF6?style=flat-square"></a>&#32;
+  <a href="#-contribuições"><img alt="Contribuições" src="https://img.shields.io/badge/🤝_Contribuições-6E40C9?style=flat-square"></a>
 </p>
 
 <p align="center">
