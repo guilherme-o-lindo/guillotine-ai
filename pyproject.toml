@@ -62,6 +62,7 @@ branch = "main"
 tag_format = "v{version}"
 changelog_file = "CHANGELOG.md"
 commit_parser = "conventional"
+commit_message = "chore(release): {version}"
 build_command = "uv build"
 allow_zero_version = true
 
