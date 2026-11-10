@@ -5,7 +5,3 @@
 ## v0.1.0 (2026-11-08)
 
 - Initial Release
-
-## v0.1.0 (2026-11-08)
-
-- Initial Release

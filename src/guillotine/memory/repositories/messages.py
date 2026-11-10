@@ -19,13 +19,17 @@ async def create_message(
     content: str,
 ) -> int:
     async with get_connection() as database:
-        cursor = await database.execute(
+        async with database.execute(
             """
             INSERT INTO messages (conversation_id, role, content)
             VALUES (?, ?, ?)
             """,
             (conversation_id, role, content),
-        )
+        ) as cursor:
+            message_id = cursor.lastrowid
+
+        if message_id is None:
+            raise RuntimeError("Não foi possível recuperar o ID da mensagem.")
 
         await database.execute(
             """
@@ -38,7 +42,60 @@ async def create_message(
 
         await database.commit()
 
-        return cursor.lastrowid or 0
+        return message_id
+
+
+async def create_exchange(
+    conversation_id: str,
+    user_content: str,
+    assistant_content: str,
+) -> tuple[int, int]:
+    async with get_connection() as database:
+        try:
+            async with database.execute(
+                """
+                INSERT INTO messages (conversation_id, role, content)
+                VALUES (?, 'user', ?)
+                """,
+                (conversation_id, user_content),
+            ) as cursor:
+                user_message_id = cursor.lastrowid
+
+            if user_message_id is None:
+                raise RuntimeError(
+                    "Não foi possível recuperar o ID da mensagem do usuário."
+                )
+
+            async with database.execute(
+                """
+                INSERT INTO messages (conversation_id, role, content)
+                VALUES (?, 'assistant', ?)
+                """,
+                (conversation_id, assistant_content),
+            ) as cursor:
+                assistant_message_id = cursor.lastrowid
+
+            if assistant_message_id is None:
+                raise RuntimeError(
+                    "Não foi possível recuperar o ID da resposta do assistente."
+                )
+
+            await database.execute(
+                """
+                UPDATE conversations
+                SET updated_at = CURRENT_TIMESTAMP
+                WHERE id = ?
+                """,
+                (conversation_id,),
+            )
+
+            await database.commit()
+
+            return user_message_id, assistant_message_id
+
+        except Exception:
+            await database.rollback()
+            raise
 
 
 async def get_message(message_id: int) -> Message | None:
@@ -96,14 +153,15 @@ async def list_messages(conversation_id: str) -> list[Message]:
 
 async def delete_message(message_id: int) -> bool:
     async with get_connection() as database:
-        cursor = await database.execute(
+        async with database.execute(
             """
             DELETE FROM messages
             WHERE id = ?
             """,
             (message_id,),
-        )
+        ) as cursor:
+            deleted = cursor.rowcount > 0
 
         await database.commit()
 
-        return cursor.rowcount > 0
+        return deleted

@@ -81,17 +81,18 @@ async def list_conversations() -> list[Conversation]:
 
 async def delete_conversation(conversation_id: str) -> bool:
     async with get_connection() as database:
-        cursor = await database.execute(
+        async with database.execute(
             """
             DELETE FROM conversations
             WHERE id = ?
             """,
             (conversation_id,),
-        )
+        ) as cursor:
+            deleted = cursor.rowcount > 0
 
         await database.commit()
 
-        return cursor.rowcount > 0
+        return deleted
 
 
 async def update_conversation_title(
@@ -99,7 +100,7 @@ async def update_conversation_title(
     title: str,
 ) -> bool:
     async with get_connection() as database:
-        cursor = await database.execute(
+        async with database.execute(
             """
             UPDATE conversations
             SET title = ?,
@@ -107,8 +108,9 @@ async def update_conversation_title(
             WHERE id = ?
             """,
             (title, conversation_id),
-        )
+        ) as cursor:
+            updated = cursor.rowcount > 0
 
         await database.commit()
 
-        return cursor.rowcount > 0
+        return updated

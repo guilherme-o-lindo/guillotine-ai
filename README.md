@@ -1,27 +1,28 @@
 # Guillotine 🇫🇷
 
-<h1 align="center">
+<p align="center">
   <a href="https://github.com/guilherme-o-lindo/guillotine-ai">
-    <img align="center" src="assets/banner.png" alt="Guillotine — Seu assistente de IA, do seu jeito." width="100%" />
+    <img src="assets/banner.png" alt="Guillotine — Seu assistente de IA, do seu jeito." width="100%" />
   </a>
-</h1>
+</p>
 
 <p align="center">
-  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="License: MIT"></a>&#32;
-  <img src="https://img.shields.io/badge/Version-0.1.0-blue?style=for-the-badge" alt="Version 0.1.0">&#32;
-  <img src="https://img.shields.io/badge/Python-3.12+-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python 3.12+">&#32;
-  <img src="https://img.shields.io/badge/uv-managed-6E40C9?style=for-the-badge&logo=uv&logoColor=white" alt="uv">&#32;
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="License: MIT"></a>
+  <img src="https://img.shields.io/badge/Version-0.1.0-blue?style=for-the-badge" alt="Version 0.1.0">
+  <img src="https://img.shields.io/badge/Python-3.12+-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python 3.12+">
+  <img src="https://img.shields.io/badge/uv-managed-6E40C9?style=for-the-badge&logo=uv&logoColor=white" alt="uv">
   <img src="https://img.shields.io/badge/Status-In%20Development-orange?style=for-the-badge" alt="In Development">
 </p>
 
 <p align="center">
-  <a href="#-sobre-o-projeto"><img alt="Sobre" src="https://img.shields.io/badge/🧠_Sobre-6E40C9?style=flat-square"></a>&#32;
-  <a href="#-diferenciais"><img alt="Diferenciais" src="https://img.shields.io/badge/✨_Diferenciais-8B5CF6?style=flat-square"></a>&#32;
-  <a href="#-funcionalidades"><img alt="Funcionalidades" src="https://img.shields.io/badge/🚀_Funcionalidades-6E40C9?style=flat-square"></a>&#32;
-  <a href="#-tecnologias"><img alt="Tecnologias" src="https://img.shields.io/badge/🔌_Tecnologias-8B5CF6?style=flat-square"></a>&#32;
-  <a href="#-instalação"><img alt="Instalação" src="https://img.shields.io/badge/📦_Instalação-6E40C9?style=flat-square"></a>&#32;
-  <a href="#-roadmap"><img alt="Roadmap" src="https://img.shields.io/badge/🗺️_Roadmap-8B5CF6?style=flat-square"></a>&#32;
-  <a href="#-contribuições"><img alt="Contribuições" src="https://img.shields.io/badge/🤝_Contribuições-6E40C9?style=flat-square"></a>
+  <a href="#-sobre-o-projeto">Sobre</a> •
+  <a href="#-diferenciais">Diferenciais</a> •
+  <a href="#-funcionalidades">Funcionalidades</a> •
+  <a href="#-arquitetura">Arquitetura</a> •
+  <a href="#-tecnologias">Tecnologias</a> •
+  <a href="#-instalação">Instalação</a> •
+  <a href="#-roadmap">Roadmap</a> •
+  <a href="#-contribuições">Contribuições</a>
 </p>
 
 <p align="center">
@@ -31,7 +32,7 @@
 ## 🌐 Idiomas
 
 <p align="center">
-  <a href="README.md"><img src="https://img.shields.io/badge/🇧🇷_Português-6E40C9?style=for-the-badge" alt="Português"></a>&#32;
+  <img src="https://img.shields.io/badge/🇧🇷_Português-6E40C9?style=for-the-badge" alt="Português">
   <img src="https://img.shields.io/badge/🇺🇸_English-8B5CF6?style=for-the-badge" alt="English — em breve">
 </p>
 
@@ -63,44 +64,24 @@ A proposta é construir um sistema capaz de coordenar modelos, memória, ferrame
 
 Mais do que um simples cliente de IA, o Guillotine pretende funcionar como uma estrutura central de assistência pessoal, na qual diferentes componentes possam trabalhar em conjunto sem criar dependências desnecessárias entre eles.
 
-A versão `v0.1.0` estabelece a base funcional do projeto, incluindo integração com modelos, gerenciamento de conversas, persistência local e interface de linha de comando.
+A versão `v0.1.0` estabelece a base funcional do projeto, incluindo integração com modelos, gerenciamento de conversas, persistência local e interface de linha de comando. Melhorias de confiabilidade, testes e tratamento de erros estão sendo desenvolvidas para a próxima versão.
 
 ## ✨ Diferenciais
 
-<table>
-  <tbody>
-    <tr>
-      <td><strong>Independência de provedores</strong></td>
-      <td>Integração por meio de uma API compatível com OpenAI, permitindo utilizar serviços que implementem esse formato.</td>
-    </tr>
-    <tr>
-      <td><strong>Arquitetura modular</strong></td>
-      <td>Componentes organizados por responsabilidade, facilitando a manutenção e a evolução independente das partes do sistema.</td>
-    </tr>
-    <tr>
-      <td><strong>Gerenciamento de conversas</strong></td>
-      <td>Criação, recuperação, listagem e exclusão de conversas, com persistência do histórico de mensagens.</td>
-    </tr>
-    <tr>
-      <td><strong>Persistência local</strong></td>
-      <td>Armazenamento de conversas e mensagens utilizando SQLite, além de checkpoints para o fluxo de execução.</td>
-    </tr>
-    <tr>
-      <td><strong>Execução estruturada</strong></td>
-      <td>Utilização de PydanticAI e LangGraph na construção e organização do fluxo do agente.</td>
-    </tr>
-    <tr>
-      <td><strong>Extensibilidade</strong></td>
-      <td>Estrutura preparada para receber ferramentas, integrações MCP, novas interfaces e capacidades de memória.</td>
-    </tr>
-  </tbody>
-</table>
+| Diferencial | Descrição |
+|:---|:---|
+| **Independência de provedores** | Integração por meio de APIs compatíveis com OpenAI, permitindo utilizar diferentes serviços que implementem esse formato. |
+| **Arquitetura modular** | Componentes organizados por responsabilidade, facilitando a manutenção e a evolução independente das partes do sistema. |
+| **Gerenciamento de conversas** | Criação, recuperação, listagem e exclusão de conversas, com persistência do histórico de mensagens. |
+| **Persistência local** | Armazenamento de conversas e mensagens utilizando SQLite, além de checkpoints para o fluxo de execução. |
+| **Execução estruturada** | Utilização de PydanticAI e LangGraph na construção e organização do fluxo do agente. |
+| **Extensibilidade** | Estrutura preparada para receber ferramentas, integrações MCP, novas interfaces e capacidades de memória. |
 
 ## 🚀 Funcionalidades
 
-O Guillotine está em desenvolvimento. Abaixo estão as funcionalidades disponíveis na versão atual e as capacidades planejadas para as próximas versões.
+O Guillotine está em desenvolvimento. Abaixo estão as funcionalidades implementadas e as capacidades planejadas para as próximas versões.
 
-### Implementadas — v0.1.0
+### Implementadas — versão atual do código
 
 - [x] **Agente**
   - [x] Agente central utilizando PydanticAI.
@@ -111,28 +92,44 @@ O Guillotine está em desenvolvimento. Abaixo estão as funcionalidades disponí
 - [x] **Modelos e provedores**
   - [x] Comunicação com APIs compatíveis com OpenAI.
   - [x] Configuração de modelo, endpoint e chave de API por variáveis de ambiente.
+  - [x] Configuração de timeout para as requisições.
+  - [x] Gerenciamento do ciclo de vida do cliente HTTP.
+  - [x] Tratamento de erros conhecidos do provedor.
 
 - [x] **Conversas e histórico**
   - [x] Criação e exclusão de conversas.
   - [x] Listagem e abertura de conversas existentes.
   - [x] Recuperação do histórico de mensagens.
   - [x] Continuidade do contexto entre mensagens.
+  - [x] Atualização automática do título da conversa.
 
 - [x] **Persistência**
   - [x] Armazenamento local utilizando SQLite e aiosqlite.
   - [x] Persistência de checkpoints com LangGraph.
+  - [x] Gravação atômica das trocas de mensagens.
+  - [x] Exclusão em cascata das mensagens associadas às conversas.
 
 - [x] **Interface**
   - [x] Interface de linha de comando (CLI).
   - [x] Comandos para gerenciamento de conversas.
+  - [x] Tratamento de erros conhecidos.
+
+- [x] **Qualidade e testes**
+  - [x] Testes automatizados com Pytest.
+  - [x] Testes utilizando armazenamento SQLite isolado.
+  - [x] Testes de repositórios e serviços.
+  - [x] Testes do grafo e do ciclo de vida dos componentes.
+  - [x] Testes de configuração e tratamento de erros.
+  - [x] Simulação do provedor nos testes.
+
+**Estado atual da suíte:** 77 testes aprovados.
 
 ### Em desenvolvimento
 
-- [ ] Testes automatizados abrangentes.
-- [ ] Aprimoramento do tratamento de erros.
-- [ ] Refinamento do gerenciamento de configurações.
-- [ ] Melhorias no gerenciamento de contexto e histórico.
-- [ ] Tratamento de falhas e ciclo de vida dos provedores.
+- [ ] Revisão final da documentação.
+- [ ] Validação do arquivo `.env.example`.
+- [ ] Validação da configuração do Pre-commit.
+- [ ] Preparação e validação da release `v0.2.0`.
 
 ### Planejadas
 
@@ -187,7 +184,6 @@ src/
     │
     ├── memory/
     │   ├── manager.py
-    │   ├── types.py
     │   ├── repositories/
     │   │   ├── conversations.py
     │   │   ├── knowledge.py
@@ -198,6 +194,7 @@ src/
     │       └── models.py
     │
     ├── models/
+    │   ├── errors.py
     │   ├── provider.py
     │   └── router.py
     │
@@ -219,13 +216,13 @@ src/
 | Módulo | Responsabilidade |
 |:---|:---|
 | `core` | Lógica central do agente, contexto, fluxo de execução e ciclo de vida. |
-| `models` | Integração com modelos e provedores. |
+| `models` | Integração com modelos, provedores e tratamento de erros. |
 | `memory` | Gerenciamento de conversas, mensagens e persistência. |
 | `services` | Coordenação dos casos de uso da aplicação. |
 | `tools` | Estrutura para registro, execução e integração de ferramentas. |
 | `interfaces` | Pontos de interação com o usuário e outros sistemas. |
 
-A estrutura também contém módulos preparados para funcionalidades futuras. Nem todos os componentes estão implementados na `v0.1.0`.
+A estrutura também contém módulos preparados para funcionalidades futuras. Nem todos os componentes estão implementados ou integrados ao fluxo principal.
 
 ## 🔌 Tecnologias
 
@@ -253,7 +250,13 @@ A estrutura também contém módulos preparados para funcionalidades futuras. Ne
 |:---|:---|
 | [PydanticAI](https://ai.pydantic.dev/) | Construção e execução do agente. |
 | [LangGraph](https://docs.langchain.com/oss/python/langgraph/overview) | Estruturação do fluxo de execução e persistência de checkpoints. |
-| [OpenAI Python SDK](https://github.com/openai/openai-python) | Comunicação com APIs compatíveis com o formato OpenAI. |
+| [OpenAI Python SDK](https://github.com/openai/openai-python) | Ecossistema de integração com APIs compatíveis com o formato OpenAI. |
+
+### Comunicação HTTP
+
+| Tecnologia | Finalidade |
+|:---|:---|
+| `httpx2` | Cliente HTTP assíncrono utilizado na integração com o provedor. |
 
 ### Persistência
 
@@ -311,19 +314,36 @@ uv sync
 
 ### 3. Configuração
 
-Crie um arquivo `.env` na raiz do projeto:
+O projeto disponibiliza um arquivo `.env.example` com as variáveis de ambiente necessárias.
+
+Copie o arquivo para `.env`:
+
+```bash
+cp .env.example .env
+```
+
+No Windows PowerShell, utilize:
+
+```powershell
+Copy-Item .env.example .env
+```
+
+Configure os valores de acordo com o provedor e as integrações utilizadas:
 
 ```env
+# Provedor de IA
 GUILLOTINE_MODEL=seu-modelo
 GUILLOTINE_BASE_URL=http://localhost:20128/v1
 GUILLOTINE_API_KEY=sua-chave
-```
+GUILLOTINE_TIMEOUT=60
 
-Configure os valores de acordo com o provedor utilizado.
+# Integração com GitHub (opcional)
+GH_TOKEN=seu-token-do-github
+```
 
 O endpoint apresentado é um exemplo de configuração para um serviço local. Ele pode ser substituído por outro endpoint compatível com a API OpenAI.
 
-> **Importante:** não compartilhe seu arquivo `.env` nem envie chaves de API para o repositório.
+> **Importante:** não compartilhe seu arquivo `.env` nem envie chaves de API para o repositório. O `GH_TOKEN` é destinado à integração com GitHub e pode permanecer vazio enquanto essa integração não for utilizada.
 
 ### 4. Executando o Guillotine
 
@@ -341,7 +361,7 @@ O banco de dados SQLite é armazenado localmente em `data/guillotine.db`.
 
 ## 💻 Comandos da CLI
 
-A versão `v0.1.0` disponibiliza comandos para interação e gerenciamento de conversas:
+A interface de linha de comando disponibiliza comandos para interação e gerenciamento de conversas:
 
 | Comando | Descrição |
 |:---|:---|
@@ -354,6 +374,50 @@ A versão `v0.1.0` disponibiliza comandos para interação e gerenciamento de co
 | `/sair` | Encerra o Guillotine. |
 
 Mensagens que não correspondem a comandos são encaminhadas ao agente.
+
+## 🛠️ Desenvolvimento
+
+O projeto utiliza Pre-commit para automatizar verificações de qualidade antes dos commits.
+
+### Instalação dos hooks
+
+```bash
+uv run pre-commit install
+uv run pre-commit install --hook-type commit-msg
+```
+
+### Hooks configurados
+
+| Hook | Estágio | Responsabilidade |
+|:---|:---|:---|
+| Commitizen | `commit-msg` | Valida as mensagens de commit conforme Conventional Commits. |
+| Ruff Check | `pre-commit` | Analisa e corrige problemas identificados no código. |
+| Ruff Format | `pre-commit` | Formata os arquivos Python. |
+| Pyright | `pre-commit` | Verifica os tipos do projeto. |
+
+### Executando as verificações manualmente
+
+```bash
+# Executar todos os testes
+uv run pytest
+
+# Análise estática
+uv run ruff check .
+
+# Verificar formatação
+uv run ruff format --check .
+
+# Verificação de tipos
+uv run pyright
+
+# Validar configuração do Pre-commit
+uv run pre-commit validate-config
+
+# Executar todos os hooks
+uv run pre-commit run --all-files
+```
+
+Os hooks de qualidade podem modificar arquivos automaticamente. Caso isso aconteça, revise as alterações e adicione os arquivos novamente antes de repetir o commit.
 
 ## 🗺️ Roadmap
 

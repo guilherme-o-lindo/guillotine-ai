@@ -13,11 +13,12 @@ async def get_connection() -> AsyncGenerator[aiosqlite.Connection, None]:
     DATABASE_PATH.parent.mkdir(parents=True, exist_ok=True)
 
     connection = await aiosqlite.connect(DATABASE_PATH)
-    connection.row_factory = aiosqlite.Row
-
-    await connection.execute("PRAGMA foreign_keys = ON")
 
     try:
+        connection.row_factory = aiosqlite.Row
+
+        await connection.execute("PRAGMA foreign_keys = ON")
+
         yield connection
     finally:
         await connection.close()

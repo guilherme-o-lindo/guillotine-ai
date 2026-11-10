@@ -29,20 +29,15 @@ class ConversationService:
         conversation_id: str,
         content: str,
     ) -> str:
+        if not content.strip():
+            raise ValueError("A mensagem não pode estar vazia.")
+
         conversation = await self.memory.get_conversation(conversation_id)
 
         if conversation is None:
             raise ValueError("Conversa não encontrada.")
 
         history = await self.memory.get_history(conversation_id)
-
-        if not history:
-            title = content.strip().replace("\n", " ")[:50]
-
-            await self.memory.update_conversation_title(
-                conversation_id,
-                title or "Nova conversa",
-            )
 
         config: RunnableConfig = {
             "configurable": {
@@ -64,6 +59,14 @@ class ConversationService:
             ),
         )
 
+        if not history:
+            title = " ".join(content.split())[:50]
+
+            await self.memory.update_conversation_title(
+                conversation_id,
+                title or "Nova conversa",
+            )
+
         return result["response"]
 
     async def get_history(
@@ -78,6 +81,11 @@ class ConversationService:
         return await self.memory.get_history(conversation_id)
 
     async def delete(self, conversation_id: str) -> bool:
+        conversation = await self.memory.get_conversation(conversation_id)
+
+        if conversation is None:
+            return False
+
         await self.checkpointer.adelete_thread(conversation_id)
 
         return await self.memory.delete_conversation(conversation_id)

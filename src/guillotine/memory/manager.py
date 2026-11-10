@@ -9,6 +9,7 @@ from guillotine.memory.repositories.conversations import (
 from guillotine.memory.repositories.messages import (
     Message,
     MessageRole,
+    create_exchange,
     create_message,
     delete_message,
     get_message,
@@ -43,6 +44,18 @@ class MemoryManager:
         content: str,
     ) -> int:
         return await create_message(conversation_id, role, content)
+
+    async def add_exchange(
+        self,
+        conversation_id: str,
+        user_content: str,
+        assistant_content: str,
+    ) -> tuple[int, int]:
+        return await create_exchange(
+            conversation_id,
+            user_content,
+            assistant_content,
+        )
 
     async def get_message(self, message_id: int) -> Message | None:
         return await get_message(message_id)

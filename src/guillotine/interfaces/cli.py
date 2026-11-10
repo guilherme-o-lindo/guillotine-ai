@@ -1,4 +1,7 @@
+from pydantic_ai.exceptions import ModelAPIError
+
 from guillotine.core.datetime import to_local_time
+from guillotine.models.errors import get_model_error_message
 from guillotine.services.conversations import ConversationService
 
 
@@ -99,7 +102,11 @@ async def run_cli(service: ConversationService) -> None:
 
         if user_input == "/excluir":
             try:
-                await service.delete(conversation_id)
+                deleted = await service.delete(conversation_id)
+
+                if not deleted:
+                    print("\nConversa não encontrada.\n")
+                    continue
 
                 conversation_id = await service.create("Nova conversa")
 
@@ -111,6 +118,12 @@ async def run_cli(service: ConversationService) -> None:
 
             continue
 
+        if user_input.startswith("/"):
+            print(
+                "\nComando não reconhecido. Digite /ajuda para consultar os comandos.\n"
+            )
+            continue
+
         try:
             response = await service.send_message(
                 conversation_id,
@@ -118,6 +131,10 @@ async def run_cli(service: ConversationService) -> None:
             )
 
             print(f"\nGuillotine: {response}\n")
+
+        except ModelAPIError as error:
+            message = get_model_error_message(error)
+            print(f"\nErro: {message}\n")
 
         except ValueError as error:
             print(f"\nErro: {error}\n")

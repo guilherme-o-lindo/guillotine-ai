@@ -1,22 +1,16 @@
- <div align="center">
-
-![Guillotine — Estado do Projeto e Plano de Evolução](assets/Estado%20do%20Projeto%20Guillotine.png)
+# Guillotine — Estado do Projeto e Plano de Evolução
 
 **Documento de continuidade e acompanhamento técnico**
 
-<p align="center">
-  <img src="https://img.shields.io/static/v1?label=Version&message=0.1.0&color=7C3AED&style=flat-square" alt="Version 0.1.0">
-  <img src="https://img.shields.io/static/v1?label=Next%20Version&message=0.2.0&color=9333EA&style=flat-square" alt="Next Version 0.2.0">
-  <img src="https://img.shields.io/static/v1?label=Python&message=3.12%2B&color=3776AB&style=flat-square&logo=python&logoColor=white" alt="Python 3.12+">
-</p>
+![Version](https://img.shields.io/static/v1?label=Version&message=0.1.0&color=7C3AED&style=flat-square)
+![Next Version](https://img.shields.io/static/v1?label=Next%20Version&message=0.2.0&color=9333EA&style=flat-square)
+![Python](https://img.shields.io/static/v1?label=Python&message=3.12%2B&color=3776AB&style=flat-square&logo=python&logoColor=white)
 
 *Diagnóstico, prioridades e roadmap do Guillotine.*
 
-</div>
-
 > **Objetivo deste documento**
 >
-> Registrar o diagnóstico do MVP `v0.1.0`, as prioridades identificadas na revisão do código e o plano de evolução acordado. O documento mantém o contexto técnico e as decisões do projeto disponíveis no próprio repositório, facilitando a continuidade do desenvolvimento em outras sessões.
+> Registrar o diagnóstico do MVP `v0.1.0`, as prioridades identificadas durante as revisões técnicas e o plano de evolução acordado. O documento mantém o contexto técnico e as decisões do projeto disponíveis no próprio repositório, facilitando a continuidade do desenvolvimento.
 
 ## Índice
 
@@ -30,25 +24,28 @@
 - [8. Princípios arquiteturais](#8-princípios-arquiteturais)
 - [9. Estado de acompanhamento](#9-estado-de-acompanhamento)
 
+---
+
 ## 1. Visão geral
 
 O **Guillotine** é um agente pessoal de IA desenvolvido em Python, com arquitetura modular e foco em integração com modelos, gerenciamento de conversas, memória e, futuramente, ferramentas e autonomia controlada.
 
-A versão `v0.1.0` representa um MVP funcional. A prioridade imediata não é adicionar muitas funcionalidades, mas fortalecer a base existente para que as próximas evoluções sejam confiáveis, testáveis e sustentáveis.
+A versão `v0.1.0` representa o MVP funcional. A prioridade atual não é adicionar muitas funcionalidades, mas fortalecer a base existente para que as próximas evoluções sejam confiáveis, testáveis e sustentáveis.
 
 ### Stack e tecnologias identificadas
 
 | Categoria | Tecnologia | Finalidade |
-|---|---|---|
+|:---|:---|:---|
 | Linguagem | Python `>=3.12` | Desenvolvimento da aplicação |
 | Gerenciamento | `uv` | Gerenciamento do projeto e dependências |
-| Agente | PydanticAI | Interação com o modelo |
+| Agente | PydanticAI | Construção e execução do agente |
 | Integração | API compatível com OpenAI | Comunicação com provedores |
 | Endpoint local | 9Router | Endpoint utilizado no desenvolvimento |
+| Cliente HTTP | `httpx2` | Comunicação HTTP assíncrona com o provedor |
 | Persistência | SQLite + `aiosqlite` | Armazenamento local |
-| Orquestração | LangGraph | Estrutura inicial de fluxo |
-| Checkpoints | SQLite | Persistência do estado do grafo |
-| Testes | Pytest | Testes automatizados |
+| Orquestração | LangGraph | Estrutura do fluxo de execução |
+| Checkpoints | LangGraph Checkpoint SQLite | Persistência do estado do grafo |
+| Testes | Pytest + pytest-asyncio | Testes automatizados |
 | Qualidade | Ruff + Pyright | Análise estática e padronização |
 | Versionamento | Commitizen | Conventional Commits |
 | Releases | Python Semantic Release | Versionamento e geração de releases |
@@ -57,8 +54,7 @@ A versão `v0.1.0` representa um MVP funcional. A prioridade imediata não é ad
 
 ## 2. Estado atual do MVP (`v0.1.0`)
 
-<details>
-<summary><strong>Capacidades existentes</strong></summary>
+### Capacidades existentes
 
 - Integração com modelo por meio de uma API compatível com OpenAI.
 - Criação e gerenciamento de conversas.
@@ -66,11 +62,11 @@ A versão `v0.1.0` representa um MVP funcional. A prioridade imediata não é ad
 - Recuperação do histórico para envio ao modelo.
 - CLI para operações com conversas.
 - Estrutura inicial de memória.
-- Estrutura inicial de grafo e checkpoints com LangGraph.
+- Estrutura de grafo e checkpoints com LangGraph.
 - Inicialização e encerramento centralizados dos componentes da aplicação.
 - Configuração por variáveis de ambiente.
-
-</details>
+- Tratamento de erros conhecidos do provedor.
+- Testes automatizados para os principais componentes.
 
 ### Estrutura de diretórios observada
 
@@ -105,6 +101,7 @@ src/guillotine/
 │       └── models.py
 │
 ├── models/
+│   ├── errors.py
 │   ├── provider.py
 │   └── router.py
 │
@@ -121,134 +118,208 @@ src/guillotine/
 └── main.py
 ```
 
-A estrutura acima representa o snapshot analisado durante a revisão do MVP. Caso o código tenha sido reorganizado posteriormente, atualizar este documento para refletir a estrutura vigente.
+A estrutura representa o snapshot conhecido durante o acompanhamento. Caso o código seja reorganizado, atualizar este documento e o README para refletir a estrutura vigente.
 
 ### Avaliação arquitetural
 
 A separação inicial de responsabilidades é coerente com a proposta do projeto:
 
 | Diretório | Responsabilidade |
-|---|---|
-| `core/` | Componentes centrais do agente, configuração e ciclo de vida. |
-| `interfaces/` | Pontos de entrada e interação com o usuário. |
-| `memory/` | Gerenciamento, repositórios e armazenamento da memória. |
-| `models/` | Integração e seleção de modelos. |
-| `services/` | Casos de uso e coordenação entre componentes. |
-| `tools/` | Execução e integração de ferramentas e servidores MCP. |
+|:---|:---|
+| `core/` | Componentes centrais do agente, configuração e ciclo de vida |
+| `interfaces/` | Pontos de entrada e interação com o usuário |
+| `memory/` | Gerenciamento, repositórios e armazenamento da memória |
+| `models/` | Integração, seleção e tratamento de erros dos modelos |
+| `services/` | Casos de uso e coordenação entre componentes |
+| `tools/` | Execução e integração de ferramentas e servidores MCP |
 
 **Decisão arquitetural:** preservar a arquitetura geral. Evitar criar camadas, abstrações ou diretórios sem uma necessidade concreta.
 
+### Estado dos testes
+
+<details>
+<summary><strong>Resultado da suíte automatizada</strong></summary>
+
+**Última execução registrada: 10/11/2026**
+
+```text
+77 passed in 3.74s
+```
+
+| Arquivo | Testes |
+|:---|---:|
+| `test_cli.py` | 15 |
+| `test_config.py` | 6 |
+| `test_conversation_repository.py` | 8 |
+| `test_conversation_service_unit.py` | 14 |
+| `test_database_setup.py` | 2 |
+| `test_graph_unit.py` | 5 |
+| `test_lifecycle.py` | 4 |
+| `test_message_repository.py` | 9 |
+| `test_model_errors.py` | 11 |
+| `test_provider.py` | 3 |
+| **Total** | **77** |
+
+</details>
+
+A suíte cobre configuração, persistência, serviços, grafo, lifecycle, provedor, tratamento de erros e CLI.
+
 ## 3. Pontos de atenção identificados
 
-Os itens abaixo foram observados na revisão do snapshot do MVP. Devem ser revalidados no código antes de cada alteração, pois podem ter sido corrigidos depois da análise.
+Os itens desta seção foram observados durante a revisão do MVP. O estado abaixo considera as correções e validações realizadas posteriormente.
 
 ### 3.1. Testes automatizados
 
 ![Priority](https://img.shields.io/static/v1?label=Priority&message=High&color=DC2626&style=flat-square)
+![Status](https://img.shields.io/static/v1?label=Status&message=Conclu%C3%ADdo&color=16A34A&style=flat-square)
 
-Os arquivos de teste analisados continham scripts de execução manual com `main()` e saídas em `print()`, mas não apresentavam testes Pytest convencionais com funções `test_...`.
+Inicialmente, os arquivos de teste continham scripts de execução manual com `main()` e saídas em `print()`, sem testes Pytest convencionais.
 
-Scripts manuais podem continuar sendo úteis para experimentação, mas não substituem testes automatizados.
+**Correções realizadas:**
 
-**Direção**
+- Configuração do Pytest.
+- Criação de fixtures reutilizáveis.
+- Isolamento do banco SQLite utilizado nos testes.
+- Testes de repositórios e persistência.
+- Testes do serviço de conversas.
+- Testes do agente e do grafo.
+- Testes de lifecycle e checkpointer.
+- Simulação do provedor nos testes.
+- Testes de tratamento de erros.
+- Testes da CLI.
 
-- Converter verificações relevantes em testes Pytest.
-- Criar fixtures reutilizáveis.
-- Isolar o banco utilizado nos testes.
-- Testar repositórios, serviços, memória e integração com o agente.
-- Simular o provedor nos testes que não precisam de rede.
-
-> **Regra:** testes não devem depender do banco de desenvolvimento nem de um provedor externo real, salvo quando forem testes de integração explicitamente identificados.
+**Resultado atual:** 77 testes aprovados.
 
 ### 3.2. Configuração de ambiente
 
 ![Priority](https://img.shields.io/static/v1?label=Priority&message=High&color=DC2626&style=flat-square)
+![Status](https://img.shields.io/static/v1?label=Status&message=Implementado&color=16A34A&style=flat-square)
 
-Foi identificada divergência entre os nomes das variáveis no `.env.example` e os nomes consultados pelo código.
+A revisão identificou divergências entre os nomes das variáveis do `.env.example` e os nomes consultados pelo código.
 
-**Nomes esperados pelo código:**
+**Variáveis principais esperadas pelo código:**
 
 ```env
 GUILLOTINE_MODEL=seu-modelo
 GUILLOTINE_BASE_URL=http://localhost:20128/v1
 GUILLOTINE_API_KEY=sua-chave
+GUILLOTINE_TIMEOUT=60
 ```
 
-**Direção**
+O arquivo `.env.example` também contém uma variável opcional para integração com GitHub:
 
-- Corrigir o `.env.example`.
+```env
+GH_TOKEN=seu-token-do-github
+```
+
+**Direção adotada:**
+
 - Centralizar a leitura das configurações.
-- Validar configurações obrigatórias na inicialização.
-- Exibir erros claros quando uma configuração estiver ausente ou inválida.
+- Validar configurações obrigatórias.
+- Validar o timeout.
+- Apresentar erros claros quando uma configuração estiver ausente ou inválida.
+- Testar o comportamento das configurações.
+- Manter credenciais fora do controle de versão.
+
+A implementação da configuração principal e seus testes já foram realizados.
+
+**Pendências:**
+
+- [ ] Confirmar a correspondência integral entre `.env.example` e as variáveis efetivamente utilizadas pelo código.
+- [ ] Confirmar se `GH_TOKEN` já é consumido por algum componente da aplicação.
+- [ ] Confirmar que segredos não são registrados nos logs.
 
 Nunca versionar `.env` nem compartilhar chaves, tokens ou credenciais.
 
 ### 3.3. Cliente e provedor de modelo
 
 ![Priority](https://img.shields.io/static/v1?label=Priority&message=Medium&color=F59E0B&style=flat-square)
+![Status](https://img.shields.io/static/v1?label=Status&message=Implementado&color=16A34A&style=flat-square)
 
-A revisão identificou clientes independentes para o mesmo serviço: um cliente OpenAI assíncrono e um `OpenAIProvider` utilizado pelo PydanticAI. O cliente independente aparecia em um script de conexão.
+A revisão identificou clientes independentes para o mesmo serviço: um cliente OpenAI assíncrono e um `OpenAIProvider` utilizado pelo PydanticAI.
 
-Isso não é necessariamente incorreto, mas exige uma estratégia explícita.
+A estratégia atual passou a centralizar a criação e o gerenciamento do cliente no ciclo de vida do provedor.
 
-**Direção**
+**Correções realizadas:**
 
-- Definir quem cria e gerencia os clientes.
-- Definir como os recursos e conexões são encerrados.
-- Configurar timeout.
-- Tratar indisponibilidade e erros do provedor.
-- Permitir simulação do provedor nos testes.
+- Utilização do `OpenAIProvider`.
+- Injeção do cliente HTTP no provedor.
+- Gerenciamento assíncrono do cliente.
+- Configuração de timeout.
+- Separação da criação do agente e do lifecycle do modelo.
+- Tratamento de erros conhecidos do provedor.
+- Testes do provedor e do lifecycle.
+
+O cliente HTTP utilizado atualmente é `httpx2`, adotado para acompanhar a compatibilidade exigida pela versão instalada do PydanticAI.
 
 ### 3.4. LangGraph e checkpoints
 
 ![Priority](https://img.shields.io/static/v1?label=Priority&message=Medium&color=F59E0B&style=flat-square)
+![Status](https://img.shields.io/static/v1?label=Status&message=Validado&color=16A34A&style=flat-square)
 
-O grafo observado no MVP era simples, com um nó principal do agente. O histórico da conversa era recuperado pelo gerenciamento de memória, enquanto o checkpoint do LangGraph ainda não coordenava um fluxo complexo de execução.
+O grafo continua simples, com um nó principal do agente. O histórico da conversa é recuperado pelo gerenciamento de memória, enquanto o LangGraph mantém os checkpoints da execução.
 
-**Direção**
+**Direção adotada:**
 
-- Manter a integração por enquanto.
+- Manter a integração atual.
 - Não aumentar a complexidade do grafo sem um caso de uso real.
-- Definir com clareza a responsabilidade do histórico persistido e dos checkpoints.
+- Preservar a separação entre histórico de mensagens e checkpoints.
+- Utilizar o identificador da conversa como identificador da thread.
 - Verificar a consistência entre exclusão de conversas e exclusão dos checkpoints associados.
+
+**Validações realizadas:**
+
+- Testes do fluxo do grafo.
+- Testes de persistência das mensagens.
+- Testes da exclusão de conversas.
+- Teste de exclusão em cascata das mensagens.
+- Teste de falha na exclusão do checkpoint.
+- Teste para impedir operações desnecessárias quando a conversa não existe.
+
+**Observação sobre concorrência:** chamadas simultâneas para a mesma conversa ainda não possuem serialização explícita. A implementação de locks foi adiada até existir um consumidor concorrente que justifique essa complexidade.
 
 ### 3.5. Tratamento de erros e CLI
 
 ![Priority](https://img.shields.io/static/v1?label=Priority&message=Medium&color=F59E0B&style=flat-square)
+![Status](https://img.shields.io/static/v1?label=Status&message=Implementado&color=16A34A&style=flat-square)
 
-A revisão identificou tratamento limitado de exceções na CLI e uso de `input()` em fluxo assíncrono.
+A revisão inicial identificou tratamento limitado de exceções na CLI e uso de `input()` em fluxo assíncrono.
 
-**Direção**
+**Correções realizadas:**
 
-- Tratar erros esperados do serviço e do provedor.
-- Evitar encerramentos inesperados por falhas recuperáveis.
-- Exibir mensagens compreensíveis para o usuário.
-- Avaliar uma estratégia de entrada assíncrona caso a CLI passe a exigir maior concorrência.
+- Implementação de mensagens amigáveis para erros conhecidos do modelo.
+- Criação de `models/errors.py`.
+- Tratamento de erros esperados na CLI.
+- Testes de erros do provedor.
+- Testes de erros do serviço.
+- Verificação de que erros inesperados continuam sendo propagados.
+
+A estratégia de entrada da CLI pode ser revisada futuramente caso surja uma necessidade real de maior concorrência.
 
 ### 3.6. Componentes ainda não implementados ou incompletos
 
-Na revisão, alguns módulos estavam vazios ou ainda sem implementação funcional identificada:
+Os seguintes módulos representam possibilidades de evolução. Sua presença na estrutura não significa que precisem ser implementados imediatamente.
 
-| Módulo | Situação observada |
-|---|---|
-| `memory/repositories/knowledge.py` | Sem implementação funcional identificada |
-| `memory/repositories/preferences.py` | Sem implementação funcional identificada |
-| `models/router.py` | Sem implementação funcional identificada |
-| `tools/registry.py` | Sem implementação funcional identificada |
-| `tools/executor.py` | Sem implementação funcional identificada |
-| `tools/mcp/client.py` | Estrutura inicial |
-| `tools/mcp/manager.py` | Estrutura inicial |
-| `interfaces/api.py` | Sem implementação funcional identificada |
-| `interfaces/voice.py` | Sem implementação funcional identificada |
-| `core/permissions.py` | Sem implementação funcional identificada |
-| `core/context.py` | Sem implementação funcional identificada |
-| `core/prompt.py` | Sem implementação funcional identificada |
+| Módulo | Estado conhecido |
+|:---|:---|
+| `memory/repositories/knowledge.py` | Implementação funcional ainda não confirmada na revisão |
+| `memory/repositories/preferences.py` | Implementação funcional ainda não confirmada na revisão |
+| `models/router.py` | Roteamento inteligente planejado |
+| `tools/registry.py` | Estrutura criada; integração com o fluxo principal pendente |
+| `tools/executor.py` | Estrutura criada; execução de ferramentas pendente |
+| `tools/mcp/client.py` | Integração MCP a evoluir |
+| `tools/mcp/manager.py` | Gerenciamento MCP a evoluir |
+| `interfaces/api.py` | Interface planejada |
+| `interfaces/voice.py` | Interface planejada |
+| `core/permissions.py` | Permissões e controle de acesso futuros |
+| `core/context.py` | Gerenciamento de contexto a evoluir |
+| `core/prompt.py` | Gerenciamento de prompts a evoluir |
 
-Esses módulos representam possibilidades de evolução, não tarefas que precisam ser implementadas imediatamente.
+Esses módulos não fazem parte do escopo obrigatório da `v0.2.0`, salvo necessidade identificada durante a revisão.
 
 ### 3.7. Dependências
 
-Foram identificadas dependências cuja utilização direta no fluxo principal não estava evidente na revisão, incluindo bibliotecas relacionadas a:
+Foram identificadas dependências cuja utilização direta no fluxo principal não estava evidente na revisão, incluindo:
 
 - SQLAlchemy e Alembic;
 - Structlog;
@@ -260,21 +331,39 @@ Foram identificadas dependências cuja utilização direta no fluxo principal n�
 
 **Direção:** revisar cada dependência individualmente. Manter quando houver uso atual ou uma decisão concreta de implementação próxima; evitar dependências preventivas sem necessidade.
 
-### 3.8. Documentação
+### 3.8. Documentação e ferramentas de desenvolvimento
 
-Foram observados dois ajustes:
+![Priority](https://img.shields.io/static/v1?label=Priority&message=Medium&color=F59E0B&style=flat-square)
+![Status](https://img.shields.io/static/v1?label=Status&message=Em%20revis%C3%A3o&color=F59E0B&style=flat-square)
 
-- O comando de clonagem e navegação no README não correspondia ao nome padrão do repositório `guillotine-ai`.
+Foram observados alguns ajustes na documentação e no processo de desenvolvimento:
+
+- O README precisava refletir melhor o estado atual da implementação.
 - O CHANGELOG apresentava entradas duplicadas para `v0.1.0`.
+- O `.env.example` precisava ser conferido com as configurações efetivamente utilizadas.
+- A configuração do Pre-commit precisava ser revisada e validada.
 
-Revisar esses arquivos e manter a documentação alinhada ao estado real do projeto.
+**Correções e avanços realizados:**
+
+- [x] Atualização inicial do README.
+- [x] Correção proposta para a duplicação do CHANGELOG.
+- [x] Definição da configuração dos hooks do Pre-commit.
+- [x] Inclusão das instruções de desenvolvimento no README.
+
+**Pendências:**
+
+- [ ] Revisar o README após conferência com o código atual.
+- [ ] Aplicar e validar a correção do CHANGELOG.
+- [ ] Confirmar a correspondência do `.env.example`.
+- [ ] Validar os hooks do Pre-commit.
+- [ ] Validar o processo de release.
 
 ## 4. Roadmap
 
 O desenvolvimento do Guillotine será dividido em versões incrementais. Cada versão terá um tema e um conjunto de objetivos, permitindo evoluir a aplicação sem antecipar complexidade desnecessária.
 
 | Versão | Tema | Objetivo |
-|---|---|---|
+|:---|:---|:---|
 | `v0.1.0` | MVP | Agente funcional, CLI e persistência inicial |
 | `v0.2.0` | Confiabilidade | Testes, configuração, tratamento de erros e consistência |
 | `v0.3.0` | Ferramentas | Registry, executor, validação e integração MCP |
@@ -288,89 +377,95 @@ O desenvolvimento do Guillotine será dividido em versões incrementais. Cada ve
 
 ## 5. Escopo da próxima versão (`v0.2.0`)
 
-<div align="center">
-
-<div align="center">
-
-  <img src="https://img.shields.io/static/v1?label=Release&message=v0.2.0&color=7C3AED&style=for-the-badge" alt="Release v0.2.0">
-
-  <img src="https://img.shields.io/static/v1?label=Theme&message=Reliability%20and%20Testing&color=9333EA&style=for-the-badge" alt="Theme Reliability and Testing">
-
-</div>
-
-</div>
+![Release](https://img.shields.io/static/v1?label=Release&message=v0.2.0&color=7C3AED&style=for-the-badge)
+![Theme](https://img.shields.io/static/v1?label=Theme&message=Reliability%20and%20Testing&color=9333EA&style=for-the-badge)
 
 **Objetivo:** transformar a base atual em uma aplicação testável, previsível e preparada para receber novas capacidades.
 
 ### 5.1. Testes automatizados
 
-- [ ] Revisar a configuração atual do Pytest.
-- [ ] Criar fixtures para banco SQLite isolado.
-- [ ] Converter scripts manuais relevantes em testes automatizados.
-- [ ] Testar operações de conversas.
-- [ ] Testar operações de mensagens.
-- [ ] Testar o serviço de conversas.
-- [ ] Testar o gerenciamento de memória.
-- [ ] Simular respostas e falhas do provedor.
+- [x] Revisar a configuração atual do Pytest.
+- [x] Criar fixtures para banco SQLite isolado.
+- [x] Converter verificações relevantes em testes automatizados.
+- [x] Testar operações de conversas.
+- [x] Testar operações de mensagens.
+- [x] Testar o serviço de conversas.
+- [x] Testar o fluxo do agente e do grafo.
+- [x] Testar lifecycle e checkpoints.
+- [x] Simular respostas e falhas do provedor.
+- [x] Testar tratamento de erros.
+
+**Resultado registrado:** 77 testes aprovados.
 
 ### 5.2. Configuração
 
-- [ ] Corrigir `.env.example`.
-- [ ] Centralizar a leitura de configurações.
-- [ ] Validar valores obrigatórios.
-- [ ] Melhorar mensagens de erro na inicialização.
-- [ ] Garantir que segredos não sejam registrados nos logs.
+- [x] Centralizar a leitura de configurações.
+- [x] Validar valores obrigatórios.
+- [x] Validar o timeout.
+- [x] Testar configurações válidas e inválidas.
+- [ ] Revisar e alinhar o `.env.example`.
+- [ ] Confirmar a utilização de `GH_TOKEN`.
+- [ ] Confirmar que segredos não são registrados nos logs.
 
 ### 5.3. Provedor
 
-- [ ] Definir o ciclo de vida dos clientes.
-- [ ] Configurar timeout.
-- [ ] Tratar falhas de conexão e respostas inválidas.
-- [ ] Preparar substituição ou simulação do provedor nos testes.
+- [x] Definir o ciclo de vida do cliente.
+- [x] Configurar timeout.
+- [x] Tratar erros conhecidos do provedor.
+- [x] Preparar substituição ou simulação do provedor nos testes.
+- [x] Testar o lifecycle do provedor.
 
 ### 5.4. Conversas, memória e checkpoints
 
-- [ ] Revisar a persistência de mensagens.
-- [ ] Testar a continuidade do histórico.
-- [ ] Testar criação, listagem, abertura e exclusão de conversas.
-- [ ] Verificar a remoção dos checkpoints associados à conversa.
-- [ ] Documentar a responsabilidade de cada mecanismo de persistência.
+- [x] Revisar a persistência de mensagens.
+- [x] Testar a continuidade do histórico.
+- [x] Testar criação, listagem e exclusão de conversas.
+- [x] Verificar a remoção das mensagens associadas.
+- [x] Verificar a remoção dos checkpoints associados.
+- [x] Testar falhas durante a exclusão.
+- [x] Documentar a responsabilidade de cada mecanismo de persistência.
+- [x] Verificar que a gravação de uma troca de mensagens é atômica.
 
 ### 5.5. CLI e documentação
 
-- [ ] Melhorar o tratamento de erros.
-- [ ] Revisar o comportamento dos comandos.
-- [ ] Corrigir README.
-- [ ] Corrigir CHANGELOG.
-- [ ] Documentar configuração e execução local.
+- [x] Melhorar o tratamento de erros da CLI.
+- [x] Testar o comportamento dos comandos.
+- [x] Atualizar a primeira versão do README.
+- [x] Definir a configuração do Pre-commit.
+- [ ] Realizar revisão final do README.
+- [ ] Corrigir e validar o CHANGELOG.
+- [ ] Revisar o `.env.example`.
+- [ ] Validar os hooks do Pre-commit.
+- [ ] Validar o processo de release.
 
 ### Critérios de conclusão da `v0.2.0`
 
 A versão será considerada concluída quando os seguintes critérios forem atendidos:
 
-- [ ] Pytest executa testes reais e apresenta resultados.
-- [ ] Os testes utilizam armazenamento isolado.
-- [ ] Configuração ausente ou inválida gera mensagens claras.
-- [ ] Falhas do provedor são tratadas de forma previsível.
-- [ ] O histórico de conversas permanece consistente.
-- [ ] A exclusão de uma conversa trata seus checkpoints associados.
-- [ ] Ruff, Pyright e Pre-commit continuam funcionando.
+- [x] Pytest executa testes reais e apresenta resultados.
+- [x] Os testes utilizam armazenamento isolado.
+- [x] Configuração ausente ou inválida gera mensagens claras.
+- [x] Falhas conhecidas do provedor são tratadas de forma previsível.
+- [x] O histórico de conversas permanece consistente.
+- [x] A exclusão de uma conversa trata suas mensagens e checkpoints associados.
+- [ ] Ruff, Pyright e Pre-commit validados na revisão final.
 - [ ] README e CHANGELOG refletem o projeto.
+- [ ] Processo de release revisado e validado.
 
 ## 6. Ordem de implementação sugerida
 
 A implementação da `v0.2.0` deve ocorrer em pequenas etapas:
 
-| Etapa | Área | Atividade |
-|---|---|---|
-| 01 | Infraestrutura de testes | Revisar Pytest, criar fixtures e preparar banco isolado |
-| 02 | Persistência | Testar banco, modelos e repositórios |
-| 03 | Conversas | Testar o serviço e o ciclo de vida das conversas |
-| 04 | Agente | Simular o modelo e testar o fluxo de execução |
-| 05 | Configuração | Corrigir variáveis, validação e inicialização |
-| 06 | Provedor | Organizar clientes, timeout e tratamento de erros |
-| 07 | CLI | Revisar erros e comportamento dos comandos |
-| 08 | Documentação e release | Atualizar documentos, validar a suíte e preparar a release |
+| Etapa | Área | Atividade | Estado |
+|:---:|:---|:---|:---|
+| 01 | Infraestrutura de testes | Revisar Pytest, criar fixtures e preparar banco isolado | Concluída |
+| 02 | Persistência | Testar banco, modelos e repositórios | Concluída |
+| 03 | Conversas | Testar o serviço e o ciclo de vida das conversas | Concluída |
+| 04 | Agente | Simular o modelo e testar o fluxo de execução | Concluída |
+| 05 | Configuração | Corrigir variáveis, validação e inicialização | Implementada; documentação pendente |
+| 06 | Provedor | Organizar clientes, timeout e tratamento de erros | Concluída |
+| 07 | CLI | Revisar erros e comportamento dos comandos | Concluída |
+| 08 | Documentação e release | Atualizar documentos, validar ferramentas e preparar a release | Em andamento |
 
 A ordem pode ser ajustada quando uma dependência técnica exigir.
 
@@ -405,7 +500,7 @@ A geração de versão, tag e changelog deve continuar centralizada no Python Se
 Ao evoluir o Guillotine, preservar estes princípios:
 
 | Princípio | Diretriz |
-|---|---|
+|:---|:---|
 | **Simplicidade antes de abstração** | Não criar estruturas genéricas sem necessidade demonstrada. |
 | **Modularidade com propósito** | Cada módulo deve ter responsabilidade compreensível. |
 | **Separação de responsabilidades** | Interfaces não devem concentrar a lógica do agente. |
@@ -420,11 +515,16 @@ Ao evoluir o Guillotine, preservar estes princípios:
 Atualizar esta seção ao concluir tarefas ou iniciar uma nova versão.
 
 | Campo | Estado registrado |
-|---|---|
+|:---|:---|
 | Versão publicada | `v0.1.0` |
 | Próxima versão planejada | `v0.2.0` |
 | Tema atual | Confiabilidade e testes |
-| Próxima tarefa | Preparar infraestrutura do Pytest e isolamento do SQLite |
+| Testes automatizados | 77 aprovados |
+| Estado da implementação | Testes, persistência, configuração principal, provedor e CLI implementados e testados |
+| Documentação | Primeira atualização do README realizada; revisão final pendente |
+| Pre-commit | Configuração definida; validação pendente |
+| Próxima tarefa | Revisar README, CHANGELOG, `.env.example` e validar Pre-commit |
+| Etapa posterior | Validar a release `v0.2.0` |
 | Estratégia | Implementação incremental |
 
 ### Registro de decisões e progresso
@@ -434,16 +534,21 @@ Adicionar entradas curtas conforme o projeto evoluir:
 ```text
 ## Histórico de progresso
 
+- [2026-11-10] Suíte automatizada alcançou 77 testes aprovados.
+- [2026-11-10] Testada a exclusão em cascata das mensagens associadas a uma conversa.
+- [2026-11-10] Testada a integridade da exclusão diante de falhas no checkpointer.
+- [2026-11-10] Validado que conversas inexistentes não provocam exclusão de checkpoints.
+- [2026-11-10] Concluída a revisão da integridade da exclusão de conversas.
 - [AAAA-MM-DD] Decisão ou tarefa concluída.
 - [AAAA-MM-DD] Problema encontrado e solução adotada.
 ```
 
 ---
 
-<div align="center">
+<p align="center">
+  <img src="assets/banner.png" alt="Guillotine" width="100%">
+</p>
 
-![Guillotine](assets/banner.png)
-
-<sub>Documento de acompanhamento técnico do projeto Guillotine.</sub>
-
-</div>
+<p align="center">
+  <em>Documento de acompanhamento técnico do projeto Guillotine.</em>
+</p>

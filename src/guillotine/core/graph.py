@@ -3,6 +3,7 @@ from typing import TypedDict
 from langgraph.checkpoint.sqlite.aio import AsyncSqliteSaver
 from langgraph.graph import END, START, StateGraph
 from langgraph.graph.state import CompiledStateGraph
+from pydantic_ai import Agent
 from pydantic_ai.messages import (
     ModelMessage,
     ModelRequest,
@@ -11,7 +12,6 @@ from pydantic_ai.messages import (
     UserPromptPart,
 )
 
-from guillotine.core.agent import agent
 from guillotine.memory.manager import MemoryManager
 from guillotine.memory.repositories.messages import Message
 
@@ -50,6 +50,7 @@ def build_message_history(messages: list[Message]) -> list[ModelMessage]:
 def build_workflow(
     memory: MemoryManager,
     checkpointer: AsyncSqliteSaver,
+    agent: Agent[None, str],
 ) -> CompiledStateGraph[AgentState, None, AgentState, AgentState]:
 
     async def run_agent(state: AgentState) -> dict[str, str]:
@@ -65,15 +66,9 @@ def build_workflow(
 
         response = result.output
 
-        await memory.add_message(
+        await memory.add_exchange(
             conversation_id,
-            "user",
             state["user_input"],
-        )
-
-        await memory.add_message(
-            conversation_id,
-            "assistant",
             response,
         )
 
