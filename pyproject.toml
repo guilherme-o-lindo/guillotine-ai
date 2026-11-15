@@ -30,6 +30,7 @@ dependencies = [
 ]
 
 [project.scripts]
+guillotine-dev = "guillotine.dev_cli:app"
 guillotine = "guillotine.main:main"
 
 [build-system]
@@ -38,14 +39,24 @@ build-backend = "uv_build"
 
 [dependency-groups]
 dev = [
+    "allure-pytest>=2.16.2",
+    "bandit>=1.9.4",
     "commitizen>=4.19.3",
+    "httpx>=0.28.1",
+    "hypothesis>=6.170.15",
+    "locust>=2.47.0",
+    "pip-audit>=2.10.1",
     "pre-commit>=4.7.0",
     "pyright>=1.1.414",
     "pytest>=9.2.0",
     "pytest-asyncio>=1.4.1.post1",
+    "pytest-cov>=7.1.0",
     "pytest-playwright>=0.10.0",
     "python-semantic-release>=10.7.0",
     "ruff>=0.17.4",
+    "schemathesis>=4.33.4",
+    "testcontainers>=4.15.0",
+    "typer>=0.29.1",
 ]
 
 [tool.commitizen]
@@ -100,3 +111,13 @@ python_files = ["test_*.py"]
 python_functions = ["test_*"]
 asyncio_mode = "auto"
 asyncio_default_fixture_loop_scope = "function"
+addopts = "-ra --strict-markers"
+markers = ["unit: testes unitarios sem servicos externos", "integration: testes envolvendo banco ou servicos integrados", "e2e: testes ponta a ponta", "contract: testes de contrato de API", "security: testes de seguranca", "slow: testes custosos ou de longa duracao"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
+fail_under = 85
+[tool.coverage.run]
+source = ["guillotine"]
+branch = true

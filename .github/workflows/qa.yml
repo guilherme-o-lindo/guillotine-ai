@@ -1,0 +1,58 @@
+name: QA
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      GUILLOTINE_MODEL: qa-test-model
+      GUILLOTINE_API_KEY: qa-test-key
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.12"
+          enable-cache: true
+      - name: Install locked dependencies
+        run: uv sync --frozen --group dev
+      - name: Ruff lint
+        run: uv run --frozen ruff check .
+      - name: Ruff format
+        run: uv run --frozen ruff format --check .
+      - name: Pyright
+        run: uv run --frozen pyright
+      - name: Pytest, branch coverage and Allure raw results
+        run: uv run --frozen pytest --cov --cov-report=term-missing --cov-report=xml:coverage.xml --alluredir=allure-results --clean-alluredir
+      - name: Upload QA artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qa-results
+          path: |
+            coverage.xml
+            allure-results/
+          if-no-files-found: ignore
+
+  security:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.12"
+          enable-cache: true
+      - name: Install locked dependencies
+        run: uv sync --frozen --group dev
+      - name: Bandit (medium/high severity)
+        run: uv run --frozen bandit -r src/guillotine -ll
+      - name: Audit installed dependencies
+        run: uv run --frozen pip-audit
