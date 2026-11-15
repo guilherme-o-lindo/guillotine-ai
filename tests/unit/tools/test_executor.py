@@ -19,13 +19,13 @@ from guillotine.core.permissions import (
     PermissionProfile,
     PermissionRule,
 )
-from guillotine.tools.contracts import ToolEffect, ToolSecurity
-from guillotine.tools.executor import (
+from guillotine.tools.core.contracts import ToolEffect, ToolSecurity
+from guillotine.tools.core.executor import (
     ToolAdapterMissing,
     ToolExecutionDenied,
     ToolExecutor,
 )
-from guillotine.tools.registry import ToolRegistry
+from guillotine.tools.core.registry import ToolRegistry
 
 
 def local(name: str = "write") -> PydanticTool[object]:

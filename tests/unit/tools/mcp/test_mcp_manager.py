@@ -17,12 +17,13 @@ from guillotine.core.permissions import (
     PermissionProfile,
     PermissionRule,
 )
-from guillotine.tools.contracts import ToolEffect, ToolSecurity
-from guillotine.tools.executor import (
+from guillotine.tools.core.contracts import ToolEffect, ToolSecurity
+from guillotine.tools.core.executor import (
     ToolAdapterMissing,
     ToolExecutionDenied,
     ToolExecutor,
 )
+from guillotine.tools.core.registry import ToolRegistry, UnknownToolError
 from guillotine.tools.mcp.client import (
     MCPClient,
     MCPNotConnectedError,
@@ -33,7 +34,6 @@ from guillotine.tools.mcp.manager import (
     MCPServerAlreadyConnected,
     MCPToolNotFound,
 )
-from guillotine.tools.registry import ToolRegistry, UnknownToolError
 
 
 class FakeSession:
@@ -240,3 +240,39 @@ async def test_security_cannot_be_declared_for_unselected_tool() -> None:
             security={"write": READ},
         )
     assert session.initializations == 0
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    "server_ids",
+    [
+        (),
+        ("server_a",),
+        ("server_a", "server_b"),
+        ("server_a", "server_b", "server_c"),
+        ("server_a", "server_b", "server_c", "server_d"),
+    ],
+)
+async def test_close_disconnects_servers_in_reverse_order(
+    monkeypatch: pytest.MonkeyPatch,
+    server_ids: tuple[str, ...],
+) -> None:
+    manager = MCPManager.__new__(MCPManager)
+
+    monkeypatch.setattr(
+        manager,
+        "_servers",
+        dict.fromkeys(server_ids),
+        raising=False,
+    )
+
+    disconnected: list[str] = []
+
+    async def fake_disconnect(server_id: str) -> None:
+        disconnected.append(server_id)
+
+    monkeypatch.setattr(manager, "disconnect", fake_disconnect)
+
+    await manager.close()
+
+    assert disconnected == list(reversed(server_ids))

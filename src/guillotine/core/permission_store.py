@@ -9,7 +9,7 @@ from guillotine.core.permissions import (
     PermissionRule,
 )
 from guillotine.memory.storage.database import get_connection
-from guillotine.tools.registry import ToolRegistry
+from guillotine.tools.core.registry import ToolRegistry
 
 
 @dataclass(frozen=True, slots=True)

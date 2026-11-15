@@ -11,10 +11,10 @@ from collections.abc import Mapping
 from dataclasses import dataclass
 
 from guillotine.core.approvals import JsonValue
-from guillotine.tools.contracts import ToolSecurity
-from guillotine.tools.executor import ResourceResolver, ToolExecutor
+from guillotine.tools.core.contracts import ToolSecurity
+from guillotine.tools.core.executor import ResourceResolver, ToolExecutor
+from guillotine.tools.core.registry import ToolRegistry
 from guillotine.tools.mcp.client import MCPClient
-from guillotine.tools.registry import ToolRegistry
 
 
 class MCPServerAlreadyConnected(ValueError):
@@ -130,12 +130,14 @@ class MCPManager:
         return tuple(registration for _, registration in self._servers.values())
 
     async def close(self) -> None:
-        """Close all registered servers; preserve the first cleanup failure."""
+        """Close MCP sessions in reverse connection order."""
         errors: list[Exception] = []
-        for server_id in tuple(self._servers):
+
+        for server_id in reversed(tuple(self._servers)):
             try:
                 await self.disconnect(server_id)
             except Exception as exc:
                 errors.append(exc)
+
         if errors:
             raise ExceptionGroup("Failed to close MCP servers", errors)

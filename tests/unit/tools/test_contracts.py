@@ -1,7 +1,7 @@
 import pytest
 from pydantic import ValidationError
 
-from guillotine.tools.contracts import ToolEffect, ToolRisk, ToolSecurity
+from guillotine.tools.core.contracts import ToolEffect, ToolRisk, ToolSecurity
 
 
 def test_unknown_by_default_is_critical() -> None:

@@ -18,7 +18,11 @@ from guillotine.core.permissions import (
     PermissionManager,
     PermissionResult,
 )
-from guillotine.tools.registry import RegisteredTool, ToolRegistry
+from guillotine.core.tool_audit import (
+    AuditOutcome,
+    ToolAuditWriter,
+)
+from guillotine.tools.core.registry import RegisteredTool, ToolRegistry
 
 # The application wires these to the SDK's existing invocation/validation APIs.
 type ToolInvoker = Callable[[dict[str, JsonValue]], Awaitable[object]]
@@ -55,10 +59,12 @@ class ToolExecutor:
         current_permissions: CurrentPermissions,
         *,
         approvals: ApprovalManager | None = None,
+        audit: ToolAuditWriter | None = None,
     ) -> None:
         self._registry = registry
         self._current_permissions = current_permissions
         self._approvals = approvals
+        self._audit = audit
         self._adapters: dict[str, _Adapter] = {}
 
     def bind(
@@ -116,6 +122,12 @@ class ToolExecutor:
             raise ToolExecutionDenied("Permission result does not match the call")
         return result
 
+    async def _record(
+        self, tool_id: str, decision: PermissionDecision | None, outcome: AuditOutcome
+    ) -> None:
+        if self._audit is not None:
+            await self._audit(tool_id, decision, outcome)
+
     async def execute(
         self, tool_id: str, *, arguments: Mapping[str, JsonValue]
     ) -> object:
@@ -125,40 +137,57 @@ class ToolExecutor:
         from concrete call arguments. The native adapter handles SDK-level
         argument schema validation before performing any side effects.
         """
-        adapter = self._adapter(tool_id)
-        args = self._snapshot(arguments)
-        resource_id = self._resolve(adapter, args)
-        permission = await self._decision(tool_id, resource_id)
-        if permission.decision is PermissionDecision.DENY:
-            raise ToolExecutionDenied(permission.reason)
+        audit_decision: PermissionDecision | None = None
+        try:
+            adapter = self._adapter(tool_id)
+            args = self._snapshot(arguments)
+            resource_id = self._resolve(adapter, args)
+            permission = await self._decision(tool_id, resource_id)
+            audit_decision = permission.decision
+            if permission.decision is PermissionDecision.DENY:
+                raise ToolExecutionDenied(permission.reason)
 
-        if permission.decision is PermissionDecision.REQUIRE_APPROVAL:
-            if self._approvals is None:
-                raise ToolExecutionDenied("Human approval is unavailable")
-            ticket = await self._approvals.request(permission, arguments=args)
-            if ticket is None:
-                raise ToolExecutionDenied("Human approval was refused")
-            try:
-                # The UI is asynchronous: registry, resolver and policy may
-                # have changed while the user was deciding.
+            if permission.decision is PermissionDecision.REQUIRE_APPROVAL:
+                if self._approvals is None:
+                    raise ToolExecutionDenied("Human approval is unavailable")
+                ticket = await self._approvals.request(permission, arguments=args)
+                if ticket is None:
+                    raise ToolExecutionDenied("Human approval was refused")
+                try:
+                    # The UI is asynchronous: registry, resolver and policy may
+                    # have changed while the user was deciding.
+                    if self._adapter(tool_id) is not adapter:
+                        raise ToolExecutionDenied(
+                            "Tool adapter changed during approval"
+                        )
+                    if self._resolve(adapter, args) != resource_id:
+                        raise ToolExecutionDenied("Resolved resource changed")
+                    fresh = await self._decision(tool_id, resource_id)
+                    if fresh.decision is not PermissionDecision.REQUIRE_APPROVAL:
+                        # DENY blocks; ALLOW is a separate authorization and is
+                        # intentionally not substituted for the approval flow.
+                        raise ToolExecutionDenied("Permission changed during approval")
+                    if not self._approvals.consume(ticket, fresh, arguments=args):
+                        raise ToolExecutionDenied("Approval token is invalid")
+                finally:
+                    self._approvals.revoke(ticket)
+            else:
+                # Even allowed calls are checked against registry churn.
                 if self._adapter(tool_id) is not adapter:
-                    raise ToolExecutionDenied("Tool adapter changed during approval")
+                    raise ToolExecutionDenied("Tool adapter changed")
                 if self._resolve(adapter, args) != resource_id:
                     raise ToolExecutionDenied("Resolved resource changed")
-                fresh = await self._decision(tool_id, resource_id)
-                if fresh.decision is not PermissionDecision.REQUIRE_APPROVAL:
-                    # DENY blocks; ALLOW is a separate authorization and is
-                    # intentionally not substituted for the approval flow.
-                    raise ToolExecutionDenied("Permission changed during approval")
-                if not self._approvals.consume(ticket, fresh, arguments=args):
-                    raise ToolExecutionDenied("Approval token is invalid")
-            finally:
-                self._approvals.revoke(ticket)
-        else:
-            # Even allowed calls are checked against registry churn.
-            if self._adapter(tool_id) is not adapter:
-                raise ToolExecutionDenied("Tool adapter changed")
-            if self._resolve(adapter, args) != resource_id:
-                raise ToolExecutionDenied("Resolved resource changed")
 
-        return await adapter.invoke(self._snapshot(args))
+        except BaseException:
+            await self._record(tool_id, audit_decision, AuditOutcome.BLOCKED)
+            raise
+
+        # Auditing must succeed before the native adapter may be invoked.
+        await self._record(tool_id, audit_decision, AuditOutcome.AUTHORIZED)
+        try:
+            result = await adapter.invoke(self._snapshot(args))
+        except BaseException:
+            await self._record(tool_id, audit_decision, AuditOutcome.FAILED)
+            raise
+        await self._record(tool_id, audit_decision, AuditOutcome.SUCCEEDED)
+        return result

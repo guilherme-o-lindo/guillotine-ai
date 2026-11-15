@@ -3,6 +3,8 @@ from unittest.mock import AsyncMock, MagicMock, Mock
 import pytest
 
 from guillotine.core import lifecycle
+from guillotine.tools.core.executor import ToolExecutor
+from guillotine.tools.core.registry import ToolRegistry
 
 
 def make_async_context(value: object) -> MagicMock:
@@ -67,7 +69,17 @@ async def test_lifespan_initializes_and_provides_conversation_service(
         assert result is service
 
         memory.initialize.assert_awaited_once()
-        create_agent_mock.assert_called_once_with(model)
+        create_agent_mock.assert_called_once()
+
+        args, kwargs = create_agent_mock.call_args
+
+        assert args == (model,)
+        assert isinstance(kwargs["registry"], ToolRegistry)
+        assert isinstance(kwargs["executor"], ToolExecutor)
+        registered_tools = kwargs["registry"].list_tools()
+
+        assert len(registered_tools) == 1
+        assert registered_tools[0].identifier == "local:guillotine_safe_fetch"
 
         build_workflow_mock.assert_called_once_with(
             memory,

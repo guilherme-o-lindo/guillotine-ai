@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from enum import StrEnum
 from typing import TYPE_CHECKING
 
-from guillotine.tools.contracts import ToolSecurity
+from guillotine.tools.core.contracts import ToolSecurity
 
 if TYPE_CHECKING:
     from mcp.types import Tool as MCPTool

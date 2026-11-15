@@ -10,8 +10,8 @@ from guillotine.core.permissions import (
     PermissionProfile,
     PermissionRule,
 )
-from guillotine.tools.contracts import ToolEffect, ToolSecurity
-from guillotine.tools.registry import ToolRegistry, UnknownToolError
+from guillotine.tools.core.contracts import ToolEffect, ToolSecurity
+from guillotine.tools.core.registry import ToolRegistry, UnknownToolError
 
 
 def register(registry: ToolRegistry, name: str, *effects: ToolEffect) -> str:

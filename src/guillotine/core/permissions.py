@@ -3,8 +3,8 @@ from __future__ import annotations
 from dataclasses import dataclass
 from enum import StrEnum
 
-from guillotine.tools.contracts import ToolEffect
-from guillotine.tools.registry import ToolRegistry
+from guillotine.tools.core.contracts import ToolEffect
+from guillotine.tools.core.registry import ToolRegistry
 
 
 class PermissionDecision(StrEnum):

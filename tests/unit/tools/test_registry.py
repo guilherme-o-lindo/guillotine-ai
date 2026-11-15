@@ -5,8 +5,8 @@ import pytest
 from mcp.types import Tool as MCPTool
 from pydantic_ai.tools import Tool as PydanticTool
 
-from guillotine.tools.contracts import ToolEffect, ToolRisk, ToolSecurity
-from guillotine.tools.registry import (
+from guillotine.tools.core.contracts import ToolEffect, ToolRisk, ToolSecurity
+from guillotine.tools.core.registry import (
     DuplicateToolError,
     ToolRegistry,
     ToolSource,

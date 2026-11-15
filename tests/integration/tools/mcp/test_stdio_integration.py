@@ -23,15 +23,15 @@ from guillotine.core.permissions import (
     PermissionProfile,
     PermissionRule,
 )
-from guillotine.tools.contracts import ToolEffect, ToolSecurity
-from guillotine.tools.executor import (
+from guillotine.tools.core.contracts import ToolEffect, ToolSecurity
+from guillotine.tools.core.executor import (
     ToolAdapterMissing,
     ToolExecutionDenied,
     ToolExecutor,
 )
+from guillotine.tools.core.registry import ToolRegistry
 from guillotine.tools.mcp.client import MCPClient, stdio_session_factory
 from guillotine.tools.mcp.manager import MCPManager
-from guillotine.tools.registry import ToolRegistry
 
 TOOL_ID = "mcp:fixture:write_marker"
 WRITE_SECURITY = ToolSecurity(effects=frozenset({ToolEffect.WRITE}))
