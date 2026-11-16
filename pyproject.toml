@@ -71,13 +71,18 @@ update_changelog_on_bump = true
 
 [tool.semantic_release]
 version_toml = ["pyproject.toml:project.version"]
-branch = "main"
 tag_format = "v{version}"
-changelog_file = "CHANGELOG.md"
 commit_parser = "conventional"
 commit_message = "chore(release): {version}"
 build_command = "uv build"
 allow_zero_version = true
+
+[tool.semantic_release.changelog.default_templates]
+changelog_file = "CHANGELOG.md"
+
+[tool.semantic_release.branches.main]
+match = "main"
+prerelease = false
 
 [tool.ruff]
 line-length = 88
