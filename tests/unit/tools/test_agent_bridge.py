@@ -178,3 +178,86 @@ def test_agent_registers_gateway_only_when_registry_has_tools() -> None:
 def test_agent_rejects_half_configured_tool_stack() -> None:
     with pytest.raises(ValueError):
         create_agent(TestModel(), registry=ToolRegistry())
+
+
+@pytest.mark.asyncio
+async def test_resource_validation_failure_returns_controlled_error() -> None:
+    registry, executor, calls = setup_tool(PermissionDecision.ALLOW)
+
+    def blocked_resource(_arguments: Mapping[str, JsonValue]) -> str:
+        raise PermissionError("internal-resource-identifier")
+
+    async def invoke(arguments: dict[str, JsonValue]) -> object:
+        calls.append(arguments)
+        return "should not execute"
+
+    executor.bind("local:write", invoke=invoke, resource=blocked_resource)
+    output = await execute_model_call(
+        "local:write",
+        '{"path":"example.invalid"}',
+        allowed=snapshot(registry),
+        registry=registry,
+        executor=executor,
+    )
+    assert "bloqueado" in output
+    assert "internal-resource-identifier" not in output
+    assert calls == []
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    ("failure", "expected"),
+    [
+        (OSError("private socket details"), "Falha de conexão"),
+        (TimeoutError("private host details"), "tempo limite"),
+        (ValueError("HTTP status 404"), "HTTP 404"),
+        (ValueError("internal parser details"), "rejeitou"),
+    ],
+)
+async def test_expected_native_failure_returns_controlled_error(
+    failure: Exception,
+    expected: str,
+) -> None:
+    registry, executor, calls = setup_tool(PermissionDecision.ALLOW)
+
+    async def failing_invoke(arguments: dict[str, JsonValue]) -> object:
+        calls.append(arguments)
+        raise failure
+
+    executor.bind(
+        "local:write",
+        invoke=failing_invoke,
+        resource=lambda _arguments: "file:/safe",
+    )
+    output = await execute_model_call(
+        "local:write",
+        '{"path":"safe"}',
+        allowed=snapshot(registry),
+        registry=registry,
+        executor=executor,
+    )
+    assert expected in output
+    assert str(failure) not in output
+    assert calls == [{"path": "safe"}]
+
+
+@pytest.mark.asyncio
+async def test_unexpected_native_error_is_not_silently_hidden() -> None:
+    registry, executor, _ = setup_tool(PermissionDecision.ALLOW)
+
+    async def failing_invoke(_arguments: dict[str, JsonValue]) -> object:
+        raise RuntimeError("programming bug")
+
+    executor.bind(
+        "local:write",
+        invoke=failing_invoke,
+        resource=lambda _arguments: "file:/safe",
+    )
+    with pytest.raises(RuntimeError, match="programming bug"):
+        await execute_model_call(
+            "local:write",
+            '{"path":"safe"}',
+            allowed=snapshot(registry),
+            registry=registry,
+            executor=executor,
+        )

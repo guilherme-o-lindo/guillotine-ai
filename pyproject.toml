@@ -26,6 +26,7 @@ dependencies = [
     "sqlalchemy>=2.1.8",
     "structlog>=26.1.0",
     "tenacity>=9.1.4",
+    "truststore>=0.10.5",
     "tzdata>=2026.6",
 ]
 

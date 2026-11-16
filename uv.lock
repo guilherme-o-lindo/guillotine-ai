@@ -1378,6 +1378,7 @@ dependencies = [
     { name = "sqlalchemy" },
     { name = "structlog" },
     { name = "tenacity" },
+    { name = "truststore" },
     { name = "tzdata" },
 ]
 
@@ -1423,6 +1424,7 @@ requires-dist = [
     { name = "sqlalchemy", specifier = ">=2.1.8" },
     { name = "structlog", specifier = ">=26.1.0" },
     { name = "tenacity", specifier = ">=9.1.4" },
+    { name = "truststore", specifier = ">=0.10.5" },
     { name = "tzdata", specifier = ">=2026.6" },
 ]
 

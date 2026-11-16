@@ -270,7 +270,11 @@ def test_https_tls_uses_original_host_for_certificate_validation(
         return raw
 
     monkeypatch.setattr(safe_fetch.socket, "create_connection", fake_create_connection)
-    monkeypatch.setattr(safe_fetch.ssl, "create_default_context", FakeSSLContext)
+
+    def fake_ssl_context(_protocol: int) -> FakeSSLContext:
+        return FakeSSLContext()
+
+    monkeypatch.setattr(safe_fetch.truststore, "SSLContext", fake_ssl_context)
     connection = safe_fetch._PinnedConnection(  # noqa: SLF001  # pyright: ignore[reportPrivateUsage]
         "news.example.org", 443, "8.8.8.8", tls=True, timeout=4
     )
@@ -298,7 +302,11 @@ def test_tls_failure_closes_underlying_socket(
         return raw
 
     monkeypatch.setattr(safe_fetch.socket, "create_connection", fake_create_connection)
-    monkeypatch.setattr(safe_fetch.ssl, "create_default_context", BrokenSSLContext)
+
+    def broken_ssl_context(_protocol: int) -> BrokenSSLContext:
+        return BrokenSSLContext()
+
+    monkeypatch.setattr(safe_fetch.truststore, "SSLContext", broken_ssl_context)
     connection = safe_fetch._PinnedConnection(  # noqa: SLF001  # pyright: ignore[reportPrivateUsage]
         "news.example.org", 443, "8.8.8.8", tls=True, timeout=4
     )

@@ -1,7 +1,9 @@
 """Application startup and cleanup, including guarded tool infrastructure."""
 
+import os
 from collections.abc import AsyncGenerator, Awaitable, Callable
 from contextlib import asynccontextmanager
+from pathlib import Path
 
 from guillotine.core.agent import create_agent
 from guillotine.core.approvals import ApprovalManager
@@ -17,6 +19,7 @@ from guillotine.models.router import router_lifecycle
 from guillotine.services.conversations import ConversationService
 from guillotine.tools.core.executor import ToolExecutor
 from guillotine.tools.core.registry import ToolRegistry
+from guillotine.tools.local.file_tools import register_file_tools
 from guillotine.tools.local.web_fetch import register_safe_fetch
 from guillotine.tools.mcp.manager import MCPManager
 
@@ -54,6 +57,9 @@ async def lifespan(
         )
         manager = MCPManager(registry, executor)
         register_safe_fetch(registry, executor)
+        file_root = os.environ.get("GUILLOTINE_FILE_ROOT")
+        if file_root:
+            register_file_tools(registry, executor, root=Path(file_root))
         try:
             if configure_tools is not None:
                 await configure_tools(manager)

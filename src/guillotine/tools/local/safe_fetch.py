@@ -11,8 +11,12 @@ import ipaddress
 import socket
 import ssl
 from dataclasses import dataclass
-from html.parser import HTMLParser
 from urllib.parse import urljoin, urlsplit
+
+import truststore
+
+from guillotine.tools.local.html_extract import ExtractedPage
+from guillotine.tools.local.html_response import extract_fetched_html
 
 _MAX_URL = 4096
 _REDIRECTS = frozenset({301, 302, 303, 307, 308})
@@ -40,34 +44,7 @@ class FetchResult:
     text: str
     content_type: str
     status: int
-
-
-class _TextExtractor(HTMLParser):
-    def __init__(self) -> None:
-        super().__init__(convert_charrefs=True)
-        self.parts: list[str] = []
-        self._skip = 0
-
-    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
-        if tag in {"script", "style", "noscript", "svg"}:
-            self._skip += 1
-        if tag in {"p", "div", "h1", "h2", "h3", "li", "br", "article"}:
-            self.parts.append("\n")
-
-    def handle_endtag(self, tag: str) -> None:
-        if tag in {"script", "style", "noscript", "svg"} and self._skip:
-            self._skip -= 1
-        if tag in {"p", "div", "h1", "h2", "h3", "li", "article"}:
-            self.parts.append("\n")
-
-    def handle_data(self, data: str) -> None:
-        if not self._skip:
-            self.parts.append(data)
-
-    def text(self) -> str:
-        return "\n".join(
-            line.strip() for line in "".join(self.parts).splitlines() if line.strip()
-        )
+    page: ExtractedPage | None = None
 
 
 def parse_public_url(url: str) -> tuple[str, str, int, str]:
@@ -169,9 +146,10 @@ class _PinnedConnection(http.client.HTTPConnection):
             return
         try:
             # Cert verification and SNI refer to the original hostname.
-            self.sock = ssl.create_default_context().wrap_socket(
-                raw, server_hostname=self.host
-            )
+            # Use OS trust roots (Windows certificate store) while preserving
+            # certificate validation and SNI for the original hostname.
+            context = truststore.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
+            self.sock = context.wrap_socket(raw, server_hostname=self.host)
         except BaseException:
             raw.close()
             raise
@@ -260,13 +238,27 @@ def fetch_public_page(
         )
         if content_type not in _ALLOWED_CONTENT_TYPES:
             raise UnsafeDestination("Unsupported response content type")
-        # Conservative decoding avoids arbitrary encoding tricks; invalid bytes replaced
-        text = body.decode("utf-8", errors="replace")
-        if content_type != "text/plain":
-            parser = _TextExtractor()
-            parser.feed(text)
-            text = parser.text()
+        if content_type == "text/plain":
+            # Preserve the existing plain-text response contract.
+            text = body.decode("utf-8", errors="replace")[:max_chars]
+            return FetchResult(
+                url=current, text=text, content_type=content_type, status=status
+            )
+
+        # Parse only bytes already obtained through the SSRF-guarded transport.
+        # The full Content-Type retains its charset parameter for decoding.
+        page = extract_fetched_html(
+            body,
+            final_url=current,
+            content_type=headers.get("content-type", content_type),
+            max_body_bytes=max_bytes,
+            max_content_chars=max_chars,
+        )
         return FetchResult(
-            url=current, text=text[:max_chars], content_type=content_type, status=status
+            url=current,
+            text=page.content,
+            content_type=content_type,
+            status=status,
+            page=page,
         )
     raise UnsafeDestination("Too many HTTP redirects")
