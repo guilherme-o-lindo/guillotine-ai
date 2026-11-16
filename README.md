@@ -12,8 +12,8 @@ Agente modular em Python com conversas persistentes, ferramentas locais, integra
 
 <p>
   <a href="LICENSE"><img src="https://img.shields.io/static/v1?label=License&message=MIT&color=16A34A&style=flat-square" alt="Licença MIT"></a>
-  <img src="https://img.shields.io/static/v1?label=Released&message=v0.2.0&color=7C3AED&style=flat-square" alt="Última versão publicada: v0.2.0">
-  <img src="https://img.shields.io/static/v1?label=Next&message=v0.3.0%20ready&color=9333EA&style=flat-square" alt="Próxima versão: v0.3.0 pronta para release">
+  <a href="https://github.com/guilherme-o-lindo/guillotine-ai/releases/tag/v0.3.0"><img src="https://img.shields.io/static/v1?label=Released&message=v0.3.0&color=7C3AED&style=flat-square" alt="Versão publicada: v0.3.0"></a>
+  <img src="https://img.shields.io/static/v1?label=Next&message=v0.4.0%20planned&color=9333EA&style=flat-square" alt="Próxima versão planejada: v0.4.0">
   <img src="https://img.shields.io/static/v1?label=Python&message=3.12%2B&color=3776AB&style=flat-square&logo=python&logoColor=white" alt="Python 3.12 ou superior">
   <img src="https://img.shields.io/static/v1?label=QA&message=417%20passed&color=16A34A&style=flat-square" alt="QA: 417 testes aprovados">
 </p>
@@ -22,17 +22,17 @@ Agente modular em Python com conversas persistentes, ferramentas locais, integra
 
 </div>
 
-> **Estado do projeto — 15/11/2026:** a versão publicada e marcada no Git permanece `v0.2.0`. O código da `v0.3.0` está implementado, integrado à `main` local e aprovado no QA final; o semantic-release calculou `0.3.0`. A criação da tag `v0.3.0` e a publicação formal ainda **não foram confirmadas**.
+> **Estado do projeto — 16/11/2026:** **`v0.3.0` publicada.** O Python Semantic Release gerou o commit `fd2f36f`, atualizou o changelog, criou a tag `v0.3.0` (confirmada no remoto) e produziu wheel/sdist `0.3.0`. O QA final registrou **417 testes aprovados, 1 ignorado e 89,48% de cobertura**. Próxima versão planejada: `v0.4.0`.
 
 ## Visão geral
 
 O **Guillotine** é um assistente pessoal de inteligência artificial desenvolvido em Python. Seu objetivo é reunir interação com modelos, gerenciamento de conversas, memória e ferramentas em uma aplicação extensível, mantendo controle explícito sobre as operações executadas.
 
-A trajetória do projeto é incremental: `v0.1.0` estabeleceu o MVP, `v0.2.0` melhorou a confiabilidade e `v0.3.0` acrescenta ferramentas locais e MCP com permissões, aprovações e auditoria. A interface principal atual é uma CLI; API e voz continuam no roadmap.
+A trajetória do projeto é incremental: `v0.1.0` estabeleceu o MVP, `v0.2.0` melhorou a confiabilidade e `v0.3.0` entregou ferramentas locais e MCP com permissões, aprovações e auditoria. A interface principal atual é uma CLI; API e voz continuam no roadmap.
 
 ## Funcionalidades
 
-| Área | Implementação disponível no código da `v0.3.0` |
+| Área | Implementação disponível na `v0.3.0` |
 |:--|:--|
 | **Agente e modelos** | PydanticAI, execução assíncrona e APIs compatíveis com OpenAI; configuração de modelo, endpoint, chave e timeout |
 | **Orquestração** | LangGraph e checkpoints SQLite |
@@ -69,10 +69,10 @@ uv sync
 Copy-Item .env.example .env
 
 # Após configurar o .env, iniciar o assistente
-uv run guillotine
+uv run --env-file .env guillotine
 ```
 
-Em Unix/macOS, substitua `Copy-Item` por `cp .env.example .env`.
+Em Unix/macOS, substitua `Copy-Item` por `cp .env.example .env`. A opção `--env-file .env` carrega explicitamente as variáveis de ambiente; o `uv run` sem essa opção não carrega automaticamente esse arquivo por padrão.
 
 ### Configuração básica
 
@@ -178,13 +178,13 @@ Tecnologias principais: Python, uv, PydanticAI, LangGraph, SQLite/aiosqlite, SDK
 | Verificação | Resultado |
 |:--|:--|
 | Ruff lint | Aprovado |
-| Ruff format | 102 arquivos formatados |
+| Ruff format | 102 arquivos já formatados |
 | Pyright strict | 0 erros / 0 avisos |
 | Pytest | **417 aprovados**, 1 ignorado (symlink indisponível no ambiente) |
 | Cobertura total | **89,48%**, acima do mínimo de 85% |
 | Bandit | Sem problemas de severidade média ou alta; 5 achados de baixa severidade |
 | pip-audit | Nenhuma vulnerabilidade conhecida nas dependências auditáveis; pacote local `guillotine` não auditado no PyPI |
-| `uv build` | Wheel e sdist construídos com sucesso na versão declarada `0.2.0` |
+| `uv build` | Wheel e sdist `0.3.0` gerados com sucesso durante o release |
 
 ```powershell
 # Pipeline de QA disponível no projeto
@@ -205,7 +205,22 @@ uv run pre-commit install
 uv run pre-commit install --hook-type commit-msg
 ```
 
-O **Commitizen** valida mensagens Conventional Commits. O **python-semantic-release** calcula e aplica versões; não execute `cz bump` paralelamente ao fluxo de release.
+O **Commitizen** valida mensagens Conventional Commits. O **python-semantic-release** calcula e aplica versões; não execute `cz bump` paralelamente ao fluxo de release. O hook do Pyright utiliza `uv run --no-sync pyright` para não alterar o lockfile durante commits.
+
+### Release
+
+A **`v0.3.0` foi publicada** a partir da branch `main`, com changelog e tag gerados pelo Python Semantic Release. Artefatos gerados: `guillotine-0.3.0.tar.gz` e `guillotine-0.3.0-py3-none-any.whl`. Para futuras versões, após QA e com um token GitHub configurado no `.env`, o fluxo é:
+
+```powershell
+# Consultar a próxima versão sem modificar o repositório
+uv run --env-file .env --no-sync semantic-release version --print
+
+# Efetuar o release e publicar os artefatos (comandos com efeitos remotos)
+uv run --env-file .env --no-sync semantic-release version
+uv run --env-file .env --no-sync semantic-release publish
+```
+
+Esses comandos devem ser executados somente na branch de publicação e com a árvore de trabalho limpa. O `.env` e o token não devem ser versionados. Consulte o [registro técnico da v0.3.0](GUILLOTINE_PROJECT_STATUS.md#4-release-da-v030--concluído) para o histórico do release.
 
 ## Roadmap
 
@@ -213,7 +228,7 @@ O **Commitizen** valida mensagens Conventional Commits. O **python-semantic-rele
 |:--|:--|:--|
 | `v0.1.0` | MVP: agente, conversas, CLI e SQLite | Concluída e publicada |
 | `v0.2.0` | Confiabilidade, testes e ciclo de vida | Concluída e publicada |
-| `v0.3.0` | Registry, executor, MCP, permissões, ferramentas web e arquivos locais | **Implementada e validada; publicação pendente** |
+| `v0.3.0` | Registry, executor, MCP, permissões, ferramentas web e arquivos locais | **Concluída e publicada** |
 | `v0.4.0` | Memória inteligente e recuperação contextual | Planejada |
 | `v0.5.0` | Evolução da CLI e interfaces | Planejada |
 | `v0.6.0` | Autonomia e execução em etapas | Planejada |

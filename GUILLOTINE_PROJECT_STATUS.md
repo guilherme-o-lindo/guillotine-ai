@@ -12,36 +12,36 @@ Documento de continuidade técnica: entregas, decisões arquiteturais, qualidade
 
 <p>
   <a href="LICENSE"><img src="https://img.shields.io/static/v1?label=License&message=MIT&color=16A34A&style=flat-square" alt="Licença MIT"></a>
-  <img src="https://img.shields.io/static/v1?label=Released&message=v0.2.0&color=7C3AED&style=flat-square" alt="Última versão publicada: v0.2.0">
-  <img src="https://img.shields.io/static/v1?label=Next&message=v0.3.0%20ready&color=9333EA&style=flat-square" alt="Próxima versão: v0.3.0 pronta para release">
+  <a href="https://github.com/guilherme-o-lindo/guillotine-ai/releases/tag/v0.3.0"><img src="https://img.shields.io/static/v1?label=Released&message=v0.3.0&color=7C3AED&style=flat-square" alt="Versão publicada: v0.3.0"></a>
+  <img src="https://img.shields.io/static/v1?label=Next&message=v0.4.0%20planned&color=9333EA&style=flat-square" alt="Próxima versão planejada: v0.4.0">
   <img src="https://img.shields.io/static/v1?label=Python&message=3.12%2B&color=3776AB&style=flat-square&logo=python&logoColor=white" alt="Python 3.12 ou superior">
   <img src="https://img.shields.io/static/v1?label=QA&message=417%20passed&color=16A34A&style=flat-square" alt="QA: 417 testes aprovados">
 </p>
 
-[README](README.md) · [Resumo](#1-resumo-executivo) · [Implementação](#2-estado-da-implementação) · [QA](#3-validação-e-qualidade) · [Release](#4-fechamento-da-v030) · [Riscos](#5-limitações-e-pontos-de-atenção) · [Roadmap](#6-roadmap) · [Histórico](#9-registro-de-progresso)
+[README](README.md) · [Resumo](#1-resumo-executivo) · [Implementação](#2-estado-da-implementação) · [QA](#3-validação-e-qualidade) · [Release](#4-release-da-v030--concluído) · [Riscos](#5-limitações-e-pontos-de-atenção) · [Roadmap](#6-roadmap) · [Histórico](#9-registro-de-progresso)
 
 </div>
 
-> **Snapshot — 15–16/11/2026:** `v0.2.0` é a última tag de release confirmada. O código da `v0.3.0` já está concluído e validado, e o semantic-release `10.7.0` calculou `0.3.0` na branch `main`. Ainda não há confirmação da tag `v0.3.0` nem do GitHub Release. **Não confundir versão pronta para release com versão publicada.**
+> **Snapshot — 16/11/2026:** a **`v0.3.0` foi lançada** por meio do Python Semantic Release `10.7.0`. O commit de release `fd2f36f` (`chore(release): 0.3.0`) está em `main` e `origin/main`; a tag `v0.3.0` foi confirmada localmente e no remoto. O build gerou wheel e sdist `0.3.0`, e o comando de publicação foi executado com sucesso. A próxima versão planejada é a `v0.4.0`.
 
 ## 1. Resumo executivo
 
 O **Guillotine** é um agente pessoal de IA em Python com interface CLI, integração com APIs de modelos compatíveis com OpenAI, conversas persistidas em SQLite e fluxo de execução estruturado por LangGraph/PydanticAI. O projeto adota arquitetura modular e evolução incremental.
 
-A `v0.1.0` entregou o MVP. A `v0.2.0` aprimorou confiabilidade, configuração, lifecycle, testes e persistência. A **`v0.3.0` implementou o sistema funcional de ferramentas**, incluindo integração MCP, permissões, aprovações, auditoria, acesso controlado à web e leitura limitada de arquivos locais. O escopo de funcionalidades entrou em *release freeze*.
+A `v0.1.0` entregou o MVP. A `v0.2.0` aprimorou confiabilidade, configuração, lifecycle, testes e persistência. A **`v0.3.0` implementou o sistema funcional de ferramentas**, incluindo integração MCP, permissões, aprovações, auditoria, acesso controlado à web e leitura limitada de arquivos locais. O conjunto de funcionalidades foi encerrado e publicado na versão `v0.3.0`.
 
 | Indicador | Estado verificado |
 |:--|:--|
-| Última versão publicada/tag confirmada | `v0.2.0` |
-| Versão em preparação | `v0.3.0` |
+| Última versão publicada | **`v0.3.0`** |
+| Próxima versão planejada | `v0.4.0` — memória inteligente |
 | Branch de desenvolvimento | `develop` |
 | Branch de release | `main` |
-| Último merge local informado | `a083f64` — `develop` → `main` |
-| Próxima versão calculada | `0.3.0` (`semantic-release version --print`) |
+| Commit de release | `fd2f36f` — `chore(release): 0.3.0` |
+| Tag Git | `v0.3.0` confirmada localmente e em `origin` |
 | Pipeline de QA | 6 verificações aprovadas |
 | Testes e cobertura | 417 aprovados, 1 ignorado; 89,48% |
-| Build | Wheel e sdist construídos com a versão declarada `0.2.0` |
-| Pendência principal | Publicar e confirmar a tag/release `v0.3.0` |
+| Build de release | `guillotine-0.3.0.tar.gz` e `guillotine-0.3.0-py3-none-any.whl` |
+| Estado do release | **Concluído e publicado** |
 
 ## 2. Estado da implementação
 
@@ -138,9 +138,9 @@ src/guillotine/
 | pip-audit | Sem vulnerabilidades conhecidas nas dependências auditáveis |
 | `uv build` | Wheel + sdist gerados com sucesso |
 
-O teste ignorado depende da criação de um symlink indisponível no ambiente Windows utilizado. Os testes específicos de *junctions* do Windows passaram. O `pip-audit` não auditou o pacote local `guillotine (0.2.0)` no PyPI, pois ele não está publicado ali.
+O teste ignorado depende da criação de um symlink indisponível no ambiente Windows utilizado. Os testes específicos de *junctions* do Windows passaram. Na execução do QA anterior ao bump, o `pip-audit` não auditou o pacote local `guillotine (0.2.0)` no PyPI, pois não estava publicado ali. Isso não representa uma vulnerabilidade identificada.
 
-Artefatos produzidos **antes** do bump: `guillotine-0.2.0.tar.gz` e `guillotine-0.2.0-py3-none-any.whl`. Isso não demonstra um build de pacotes já versionados como `0.3.0`.
+O QA completo foi realizado antes do bump, com a versão `0.2.0` declarada. Durante o release, o Semantic Release executou `uv build` com sucesso e produziu **`guillotine-0.3.0.tar.gz`** e **`guillotine-0.3.0-py3-none-any.whl`**.
 
 ```powershell
 uv run guillotine-dev qa
@@ -154,50 +154,54 @@ uv build
 - **Propriedades:** configuração e condições de validação onde aplicável.
 - **Testes reais de aceitação realizados no desenvolvimento:** Git MCP em modo leitura, buscas DuckDuckGo, Safe Fetch para sites públicos e operações locais de arquivos, inclusive rejeição de traversal.
 
-**Critério para o release:** corrigir somente problemas realmente bloqueantes, sem iniciar uma nova rodada de implementação de funcionalidades.
+**Critério adotado no fechamento:** somente problemas bloqueantes foram tratados durante o release; funcionalidades novas ficam para versões posteriores.
 
-## 4. Fechamento da `v0.3.0`
+## 4. Release da `v0.3.0` — concluído
 
-### 4.1. Situação do Git e do versionamento
+### 4.1. Versionamento, Git e publicação
 
-- Última tag confirmada: `v0.2.0`; a tag `v0.3.0` ainda não foi confirmada.
-- Commits da fase de ferramentas incluem `e87c396`, `5b3d315` e `f3e30d7`; configuração de release no commit `30684fe`.
-- Merge local para `main`: `a083f64`.
-- Semantic Release instalado: `10.7.0`.
-- O comando somente de leitura `uv run semantic-release version --print` calculou `0.3.0` na `main`.
-- A configuração de release foi ajustada para o formato de branches do Semantic Release 10; `main` é a branch de publicação.
-- O Commitizen é destinado à validação de mensagens de commit; o Semantic Release controla o bump de versão e tags.
-- O workflow confirmado é `.github/workflows/qa.yml`. **Não há workflow de publicação confirmado.**
+- **Versão:** `0.3.0`, calculada e aplicada pelo Python Semantic Release `10.7.0` a partir dos commits convencionais.
+- **Commit oficial:** `fd2f36f` — `chore(release): 0.3.0`, em `main` e `origin/main`.
+- **Tag oficial:** `v0.3.0`, confirmada no repositório local e no remoto.
+- **Changelog:** atualizado automaticamente no processo de release.
+- **Build:** `uv build` concluiu a construção de `guillotine-0.3.0.tar.gz` e `guillotine-0.3.0-py3-none-any.whl`.
+- **Publicação:** `semantic-release publish` foi executado com sucesso utilizando as variáveis de ambiente do `.env`; a publicação integral da versão foi confirmada no acompanhamento.
+- **Histórico relevante:** implementação em `e87c396`, `5b3d315` e `f3e30d7`; configuração do Semantic Release em `30684fe`; merge `a083f64`; documentação em `c1a7aeb`.
+- **Workflow:** `.github/workflows/qa.yml` é o workflow de QA identificado. O release `v0.3.0` foi realizado pelo fluxo local do Semantic Release; não se pressupõe a existência de um workflow `release.yml`.
 
-### 4.2. Checklist restante
+[Release v0.3.0 no GitHub](https://github.com/guilherme-o-lindo/guillotine-ai/releases/tag/v0.3.0)
 
-- [x] Concluir a implementação de ferramentas MCP e locais.
-- [x] Testar escopos, permissões, aprovações, auditoria e tratamento de erros.
-- [x] Executar QA completo: 417 aprovados, 1 ignorado; 89,48% de cobertura.
-- [x] Construir wheel e sdist com a versão atualmente declarada (`0.2.0`).
-- [x] Integrar `develop` em `main` localmente.
-- [x] Confirmar que o Semantic Release calcula `0.3.0`.
-- [x] Atualizar README e documento de status para o escopo implementado (estes arquivos).
-- [ ] Confirmar push atualizado de `main` para `origin/main` e verificações CI no remoto.
-- [ ] Revisar documentação final e config de changelog/credenciais de publicação.
-- [ ] Executar bump de release pelo fluxo escolhido, com controle de commit/tag/push.
-- [ ] Verificar versão declarada `0.3.0`, lockfile e artefatos reconstruídos após o bump.
-- [ ] Confirmar tag remota `v0.3.0` e, se desejado, GitHub Release formal.
+### 4.2. Checklist final
 
-> O aviso **`Token value is missing!`** apareceu na consulta de versão. O cálculo local funcionou, mas a publicação automática em GitHub pode exigir autenticação. Não inferir que push/tag/release ocorreram sem confirmação.
+- [x] Implementar ferramentas MCP e ferramentas locais de web e arquivos.
+- [x] Validar escopos, permissões, aprovações, auditoria e tratamento de erros.
+- [x] Executar QA: **417 testes aprovados, 1 ignorado, 89,48% de cobertura**.
+- [x] Integrar `develop` em `main`.
+- [x] Atualizar README e documento de acompanhamento.
+- [x] Atualizar versão para `0.3.0` e gerar o changelog com Semantic Release.
+- [x] Construir wheel e sdist versionados como `0.3.0`.
+- [x] Criar e enviar o commit `fd2f36f` e a tag `v0.3.0`.
+- [x] Executar a publicação final da versão.
 
-### 4.3. Fluxo de publicação adotado
+### 4.3. Fluxo de release adotado
 
 | Papel | Ferramenta |
 |:--|:--|
-| Padronização de commits | Commitizen + Conventional Commits |
-| Cálculo e aplicação de versões | Python Semantic Release |
-| Lockfile e build | uv |
+| Padronização e validação de commits | Commitizen + Conventional Commits |
+| Cálculo de versão, changelog, commit e tag | Python Semantic Release |
+| Ambiente, lockfile e build | uv |
 | Desenvolvimento e integração | `develop` |
 | Branch estável/publicação | `main` |
-| QA remoto existente | GitHub Actions `qa.yml` |
+| QA remoto | GitHub Actions `qa.yml` |
 
-Não executar `cz bump` em paralelo ao Semantic Release. Evitar comandos de versão com efeitos de escrita, push ou publicação antes de validar autenticação e o estado Git. Para consulta segura: `uv run semantic-release version --print`.
+O release foi executado com as variáveis locais do `.env` e sem sincronização automática do ambiente durante o comando:
+
+```powershell
+uv run --env-file .env --no-sync semantic-release version
+uv run --env-file .env --no-sync semantic-release publish
+```
+
+O hook de Pyright do Pre-commit foi ajustado para `uv run --no-sync pyright`, impedindo que uma sincronização do `uv.lock` interrompa os commits de versão. **Não executar `cz bump` em paralelo ao Semantic Release.** Para consultar uma versão futura sem aplicar mudanças, utilizar `uv run --env-file .env --no-sync semantic-release version --print`.
 
 ## 5. Limitações e pontos de atenção
 
@@ -209,7 +213,7 @@ Não executar `cz bump` em paralelo ao Semantic Release. Evitar comandos de vers
 | **Safe Fetch** | Proteções contra SSRF e validação de redirecionamento/TLS; manter limites e avaliações de segurança ao ampliar o recurso |
 | **MCP externo** | Ferramentas/servidores externos devem ser tratados como fontes não confiáveis; respeitar aprovações e escopos |
 | **Lifecycle Windows** | `WinError 10054` intermitente de transporte Proactor foi observado em alguns encerramentos excepcionais; sem causa definitiva identificada |
-| **Configuração** | Conferir `.env.example` contra variáveis usadas; revisar presença e necessidade de `GH_TOKEN`; não expor segredos em logs |
+| **Configuração** | Conferir `.env.example` contra variáveis usadas; o token GitHub é necessário para a publicação autenticada, não para o uso básico do agente; não expor segredos em logs |
 | **Memória** | Conhecimento/preferências e recuperação contextual ainda não integram uma memória inteligente completa |
 | **LangGraph** | Concorrência simultânea na mesma conversa não possui serialização específica confirmada; evitar complexidade sem consumidor concreto |
 | **Dependências** | Reavaliar caso a caso módulos não usados diretamente (ex.: observabilidade e infraestrutura adicional) |
@@ -223,7 +227,7 @@ Não executar `cz bump` em paralelo ao Semantic Release. Evitar comandos de vers
 |:--|:--|:--|
 | `v0.1.0` | MVP: agente, conversas, CLI e persistência | Concluída/publicada |
 | `v0.2.0` | QA, configuração, lifecycle e confiabilidade | Concluída/publicada |
-| `v0.3.0` | Ferramentas, MCP, web, arquivos, permissões e auditoria | **Implementada e validada; release pendente** |
+| `v0.3.0` | Ferramentas, MCP, web, arquivos, permissões e auditoria | **Concluída e publicada** |
 | `v0.4.0` | Memória inteligente, preferências e recuperação contextual | Planejada |
 | `v0.5.0` | Evolução da CLI e interfaces (API/voz conforme priorização) | Planejada |
 | `v0.6.0` | Autonomia controlada, planos e execução em etapas | Planejada |
@@ -274,8 +278,9 @@ Esse resultado histórico não deve ser confundido com os indicadores atuais da 
 | 11–15/11/2026 | Integração MCP, Safe Fetch, extração HTML, permissões, auditoria e ferramentas locais de arquivos |
 | 15/11/2026 | Commit `f3e30d7` consolida extração web e arquivos locais; configuração Semantic Release 10 em `30684fe` |
 | 15/11/2026 | Merge local `a083f64` integra `develop` em `main`; cálculo de próxima versão retorna `0.3.0` |
-| 15–16/11/2026 | QA final: **417 aprovados, 1 ignorado**, cobertura **89,48%**; `uv build` aprovado em `0.2.0` |
-| 16/11/2026 | README e status alinhados para a preparação do release `v0.3.0` |
+| 15–16/11/2026 | QA final: **417 aprovados, 1 ignorado**, cobertura **89,48%** |
+| 16/11/2026 | README e status alinhados à `v0.3.0`; commit de documentação `c1a7aeb` |
+| 16/11/2026 | **Release `v0.3.0` concluído:** commit `fd2f36f`, tag remota confirmada, changelog atualizado, wheel/sdist `0.3.0` gerados e publicação executada |
 
 ---
 
