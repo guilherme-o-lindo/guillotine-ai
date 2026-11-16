@@ -381,3 +381,32 @@ async def test_cli_propagates_unexpected_errors(
 
     with pytest.raises(RuntimeError, match="Erro inesperado."):
         await run_cli(cast(ConversationService, service))
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    ("failure", "expected"),
+    [
+        (PermissionError("secret path"), "não autorizado"),
+        (TimeoutError("secret endpoint"), "tempo limite"),
+        (OSError("secret socket"), "falha de rede"),
+    ],
+)
+async def test_cli_recovers_from_expected_tool_failures(
+    service: FakeConversationService,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+    failure: Exception,
+    expected: str,
+) -> None:
+    service.send_message_error = failure
+    set_cli_inputs(monkeypatch, ["Tentar uma ferramenta", "Olá!", "/sair"])
+
+    await run_cli(cast(ConversationService, service))
+
+    output = capsys.readouterr().out
+    assert expected in output
+    assert str(failure) not in output
+    assert "Resposta simulada." in output
+    assert "Guillotine encerrado." in output
+    assert len(service.sent_messages) == 2

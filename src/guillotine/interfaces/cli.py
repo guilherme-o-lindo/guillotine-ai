@@ -138,3 +138,11 @@ async def run_cli(service: ConversationService) -> None:
 
         except ValueError as error:
             print(f"\nErro: {error}\n")
+        except PermissionError:
+            print("\nErro: recurso não autorizado pela política de segurança.\n")
+
+        except TimeoutError:
+            print("\nErro: a operação excedeu o tempo limite.\n")
+
+        except OSError:
+            print("\nErro: falha de rede ou de conexão.\n")
