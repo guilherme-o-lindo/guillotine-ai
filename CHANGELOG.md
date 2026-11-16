@@ -2,6 +2,46 @@
 
 <!-- version list -->
 
+## v0.3.0 (2026-11-15)
+
+### Chores
+
+- **release**: Configure semantic-release v10
+  ([`30684fe`](https://github.com/guilherme-o-lindo/guillotine-ai/commit/30684fe2c9036ef0aaf4462c319bac169dcb6362))
+
+### Continuous Integration
+
+- **qa**: Improve GitHub Actions quality and security workflows
+  ([`bb78b9d`](https://github.com/guilherme-o-lindo/guillotine-ai/commit/bb78b9dd0a51a3ed422f2b09387b590658e69c00))
+
+### Documentation
+
+- Align project documentation with v0.3.0 release
+  ([`c1a7aeb`](https://github.com/guilherme-o-lindo/guillotine-ai/commit/c1a7aeb071a5a102d2c8b8c5925a2857d5b2bab4))
+
+- Update project status and README
+  ([`ec3c426`](https://github.com/guilherme-o-lindo/guillotine-ai/commit/ec3c426ef5a2bdc4afeb0037ad53430bef363bc8))
+
+### Features
+
+- **qa**: Implement automated quality checks and development CLI
+  ([`77698f9`](https://github.com/guilherme-o-lindo/guillotine-ai/commit/77698f9e95e80a78daf29a0fd80ae4caabeeaf07))
+
+- **tools**: Add structured web extraction and secure local file tools
+  ([`f3e30d7`](https://github.com/guilherme-o-lindo/guillotine-ai/commit/f3e30d7431e0be26e93a3b9fcd58fdc947606eae))
+
+- **tools**: Implement MCP integration and permission system
+  ([`e87c396`](https://github.com/guilherme-o-lindo/guillotine-ai/commit/e87c39691aa02a340a6d2a71d4215776b5d76532))
+
+- **tools**: Integrate MCP permissions auditing and safe fetch
+  ([`5b3d315`](https://github.com/guilherme-o-lindo/guillotine-ai/commit/5b3d315cddf487aba0f68584fa60fd01fb8b7afa))
+
+### Refactoring
+
+- **tests**: Reorganize test suite by category and module
+  ([`3227340`](https://github.com/guilherme-o-lindo/guillotine-ai/commit/3227340fe5d584f409b86c229cc03f932875e4e5))
+
+
 ## v0.2.0 (2026-11-10)
 
 ### Chores

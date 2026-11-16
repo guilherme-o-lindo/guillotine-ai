@@ -26,7 +26,7 @@ repos:
 
       - id: pyright
         name: Pyright - Type Checking
-        entry: uv run pyright
+        entry: uv run --no-sync pyright
         language: system
         pass_filenames: false
         always_run: true
